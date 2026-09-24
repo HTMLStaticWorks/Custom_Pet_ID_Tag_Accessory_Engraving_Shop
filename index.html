@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PAWTAG — Smart ID Tags for Every Adventure</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23df7053'/><path d='M50 72s-22-14.5-22-27.5c0-7.2 5.8-13 13-13 4.2 0 8 2 10.5 5.2C54 33.5 57.8 31.5 62 31.5c7.2 0 13 5.8 13 13C75 57.5 50 72 50 72z' fill='%23ffffff'/></svg>">
 
 <style>
 :root{
@@ -199,12 +200,14 @@ p{
 }
 
 .logo{
-  display:flex;
+  display:inline-flex;
   align-items:center;
   gap:9px;
   font-weight:950;
   font-size:20px;
   letter-spacing:-.04em;
+  color:var(--text);
+  line-height:1;
 }
 
 .logo-mark{
@@ -245,6 +248,11 @@ p{
   display:flex;
   align-items:center;
   gap:7px;
+}
+
+.menu-header,
+.nav-mobile-contact{
+  display:none;
 }
 
 .nav-contact{
@@ -293,6 +301,12 @@ p{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
+}
+
+.hero-actions .btn{
+  min-width:165px;
+  height:44px;
+  justify-content:center;
 }
 
 .hero-visual{
@@ -515,6 +529,7 @@ body.rtl .floating-note{
 .gallery img{
   height:100%;
   object-fit:cover;
+  object-position:center 25%;
   border-radius:22px;
 }
 
@@ -635,6 +650,20 @@ body.rtl .floating-note{
 .tag-content span{
   font-size:12px;
   color:#584a37;
+}
+
+.tag-card.dark-tag .tag-content strong{
+  color:#ffffff!important;
+  text-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+
+.tag-card.dark-tag .tag-content span{
+  color:rgba(255,255,255,.88)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+.tag-card.dark-tag .tag-hole{
+  background:#555!important;
 }
 
 .designer-box{
@@ -784,9 +813,20 @@ select:focus{
 }
 
 .footer p,
-.footer a{
+.footer a:not(.logo){
   font-size:13px;
   color:var(--muted);
+  transition:.2s ease;
+}
+
+.footer a:not(.logo):hover{
+  color:var(--accent);
+}
+
+.footer .logo{
+  font-size:20px;
+  font-weight:950;
+  color:var(--text);
 }
 
 .footer-links{
@@ -833,6 +873,7 @@ select:focus{
 .progress-list{
   display:grid;
   gap:16px;
+  margin:24px 0 28px;
 }
 
 .progress-item{
@@ -899,30 +940,116 @@ select:focus{
   .tag-showcase{
     gap:38px;
   }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+
+  .card-grid,
+  .feature-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
 @media(max-width:900px){
+  .nav-actions{
+    margin-left:auto;
+  }
+
   .nav-links{
     position:absolute;
-    top:var(--nav-height);
+    top:calc(var(--nav-height) + 6px);
     left:20px;
     right:20px;
     display:none;
-    padding:12px;
+    padding:18px;
     background:var(--surface);
     border:1px solid var(--line);
-    border-radius:18px;
+    border-radius:24px;
     box-shadow:var(--shadow);
     flex-direction:column;
+    gap:10px;
     align-items:stretch;
+    z-index:1100;
   }
 
   .nav-links.open{
     display:flex;
   }
 
+  .menu-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:12px;
+    margin-bottom:4px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .menu-title{
+    font-size:14px;
+    font-weight:800;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  .menu-close-btn{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--surface2);
+    color:var(--text);
+    display:grid;
+    place-items:center;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s ease;
+  }
+
+  .menu-close-btn:hover{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+  }
+
   .nav-links a{
-    padding:12px;
+    padding:13px 18px;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:750;
+    color:var(--text);
+    background:var(--surface2);
+    border:1px solid var(--line);
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active-link{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+  }
+
+  .nav-links a.nav-mobile-contact{
+    display:flex;
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+    margin-top:4px;
+    font-weight:800;
+  }
+
+  .nav-links a.nav-mobile-contact:hover{
+    background:var(--accent-dark);
+    border-color:var(--accent-dark);
   }
 
   .menu-btn{
@@ -972,14 +1099,18 @@ select:focus{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .card-grid,
-  .feature-grid,
   .products-grid{
     grid-template-columns:repeat(2,1fr);
   }
+}
 
-  .footer-grid{
-    grid-template-columns:1fr 1fr;
+@media(min-width:621px) and (max-width:1050px){
+  .card-grid > *:nth-child(3),
+  .feature-grid > *:nth-child(3){
+    grid-column:1/-1;
+    justify-self:center;
+    width:100%;
+    max-width:calc(50% - 9px);
   }
 }
 
@@ -1064,8 +1195,8 @@ select:focus{
 }
 
 /* Small requested enhancements only */
-.hero-image.products-hero-image{object-fit:contain;background:var(--surface2);padding:14px;}
-.product-card img.adventure-image{object-fit:contain;background:var(--surface2);padding:12px;}
+.hero-image.products-hero-image{object-fit:cover;}
+.product-card img.adventure-image{object-fit:cover;}
 .gallery img{min-width:0;}
 .hero-grid > *, .split > *, .tag-showcase > *, .contact-grid > *{min-width:0;}
 .social-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;}
@@ -1073,8 +1204,9 @@ select:focus{
 .social-link:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
 .newsletter{padding:18px 20px;border:1px solid var(--line);background:var(--surface);border-radius:18px;}
 .newsletter p{margin:6px 0 12px;}
-.newsletter-form{display:flex;gap:8px;}
-.newsletter-form input{flex:1;min-width:0;}
+.newsletter-form{display:flex;gap:8px;align-items:center;}
+.newsletter-form input{flex:1;min-width:0;height:44px;padding:0 14px;border-radius:12px;}
+.newsletter-form .btn{height:44px;}
 #backToTop{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);box-shadow:var(--shadow);display:grid;place-items:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;z-index:1200;}
 #backToTop.show{opacity:1;visibility:visible;transform:none;}
 @media(max-width:620px){.newsletter-form{flex-direction:column}.newsletter-form .btn{width:100%;}.hero-image.products-hero-image{padding:8px;}.product-card img.adventure-image{padding:8px;}}
@@ -1094,11 +1226,16 @@ select:focus{
     </a>
 
     <div class="nav-links" id="navLinks">
+      <div class="menu-header">
+        <span class="menu-title">Menu</span>
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close menu">✕</button>
+      </div>
       <a href="#home1" class="page-link active-link" data-page="home1">Home 01</a>
       <a href="#home2" class="page-link" data-page="home2">Home 02</a>
       <a href="#products" class="page-link" data-page="products">Products</a>
       <a href="#designer" class="page-link" data-page="designer">Design Your Tag</a>
       <a href="#bulk" class="page-link" data-page="bulk">Bulk Orders</a>
+      <a href="#contact" class="page-link nav-mobile-contact btn btn-primary" data-page="contact">Contact Us</a>
     </div>
 
     <div class="nav-actions">
@@ -1108,7 +1245,7 @@ select:focus{
 
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
       <button class="icon-btn" id="rtlBtn" aria-label="Toggle RTL">RTL</button>
-      <button class="icon-btn menu-btn" id="menuBtn">☰</button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
     </div>
 
   </div>
@@ -1523,24 +1660,24 @@ select:focus{
       <div class="gallery">
 
         <img
-          src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=2000&q=90"
+          src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=2000&q=90"
           alt="Dog outdoors">
 
         <img
-          src="https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=1800&q=90"
+          src="https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=1800&q=90"
           alt="Dog portrait">
 
         <img
-          src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1800&q=90"
-          alt="Dog outdoors">
+          src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1800&q=90"
+          alt="Golden retriever outdoors">
 
         <img
-          src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=1800&q=90"
-          alt="Dog walking">
+          src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1800&q=90"
+          alt="Small dog portrait">
 
         <img
           src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1800&q=90"
-          alt="Dog enjoying everyday life">
+          alt="Dogs enjoying everyday life">
 
       </div>
 
@@ -1663,6 +1800,28 @@ select:focus{
             <h3>Adventure Plate</h3>
             <p>A confident shape for pets that never sit still.</p>
             <div class="price">From ₹599</div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <img
+            src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog with collar">
+          <div class="product-info">
+            <h3>Heritage Hexagon</h3>
+            <p>A distinctive geometric silhouette with smooth hand-finished edges.</p>
+            <div class="price">From ₹629</div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <img
+            src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog in park">
+          <div class="product-info">
+            <h3>Luxe Crest</h3>
+            <p>A refined, elegant tag shape designed for special occasions and everyday style.</p>
+            <div class="price">From ₹649</div>
           </div>
         </article>
 
@@ -2576,7 +2735,7 @@ function showPage(pageId){
     );
   });
 
-  document.getElementById("navLinks").classList.remove("open");
+  closeMenu();
 
   window.scrollTo({
     top:0,
@@ -2622,10 +2781,40 @@ window.addEventListener("hashchange",()=>{
 ========================================================= */
 
 const menuBtn = document.getElementById("menuBtn");
+const menuCloseBtn = document.getElementById("menuCloseBtn");
 const navLinksBox = document.getElementById("navLinks");
 
-menuBtn.addEventListener("click",()=>{
-  navLinksBox.classList.toggle("open");
+function closeMenu(){
+  if(navLinksBox){
+    navLinksBox.classList.remove("open");
+  }
+  if(menuBtn){
+    menuBtn.textContent = "☰";
+  }
+}
+
+function toggleMenu(){
+  if(!navLinksBox) return;
+  const isOpen = navLinksBox.classList.toggle("open");
+  if(menuBtn){
+    menuBtn.textContent = isOpen ? "✕" : "☰";
+  }
+}
+
+if(menuBtn){
+  menuBtn.addEventListener("click", toggleMenu);
+}
+
+if(menuCloseBtn){
+  menuCloseBtn.addEventListener("click", closeMenu);
+}
+
+document.addEventListener("click",(event)=>{
+  if(navLinksBox && navLinksBox.classList.contains("open")){
+    if(!navLinksBox.contains(event.target) && !menuBtn.contains(event.target)){
+      closeMenu();
+    }
+  }
 });
 
 
@@ -2753,6 +2942,18 @@ petInfo.addEventListener("input",updatePreview);
 
 /* COLORS */
 
+function isDarkColor(colorHex){
+  if(!colorHex || colorHex.charAt(0) !== '#') return false;
+  const hex = colorHex.substring(1);
+  const r = parseInt(hex.substring(0, 2), 16) || 0;
+  const g = parseInt(hex.substring(2, 4), 16) || 0;
+  const b = parseInt(hex.substring(4, 6), 16) || 0;
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness < 128;
+}
+
+const tagHoleEl = document.querySelector(".tag-hole");
+
 document.querySelectorAll(".swatch").forEach(swatch=>{
 
   swatch.addEventListener("click",()=>{
@@ -2762,7 +2963,18 @@ document.querySelectorAll(".swatch").forEach(swatch=>{
 
     swatch.classList.add("active");
 
-    tagPreview.style.background = swatch.dataset.color;
+    const color = swatch.dataset.color;
+    tagPreview.style.background = color;
+
+    if(tagHoleEl){
+      tagHoleEl.style.boxShadow = `inset 0 0 0 5px ${color}`;
+    }
+
+    if(isDarkColor(color)){
+      tagPreview.classList.add("dark-tag");
+    }else{
+      tagPreview.classList.remove("dark-tag");
+    }
 
   });
 
