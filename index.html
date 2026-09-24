@@ -1,0 +1,2940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAWTAG — Smart ID Tags for Every Adventure</title>
+
+<style>
+:root{
+  --bg:#f6f2ea;
+  --surface:#fffdf8;
+  --surface2:#eee8dc;
+  --text:#20211e;
+  --muted:#74736d;
+  --line:rgba(32,33,30,.12);
+  --accent:#df7053;
+  --accent-dark:#bf5439;
+  --green:#72836d;
+  --dark:#191a18;
+  --white:#fff;
+  --shadow:0 18px 55px rgba(35,31,23,.10);
+  --radius:24px;
+  --nav-height:76px;
+}
+
+body.dark{
+  --bg:#171816;
+  --surface:#20221f;
+  --surface2:#292b27;
+  --text:#f4f0e7;
+  --muted:#aaa89f;
+  --line:rgba(255,255,255,.11);
+  --accent:#ee8061;
+  --accent-dark:#ff9a7d;
+  --green:#8fa18a;
+  --dark:#0f100f;
+  --white:#fff;
+  --shadow:0 18px 55px rgba(0,0,0,.28);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  overflow-x:hidden;
+  transition:.25s ease;
+}
+
+body.rtl{
+  direction:rtl;
+}
+
+img{
+  display:block;
+  width:100%;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.section{
+  padding:76px 0;
+}
+
+.section-head{
+  max-width:720px;
+  margin:0 auto 38px;
+  text-align:center;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border-radius:100px;
+  background:var(--surface2);
+  color:var(--accent);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:13px;
+}
+
+h1,h2,h3,h4{
+  line-height:1.15;
+  letter-spacing:-.025em;
+}
+
+h1{
+  font-size:clamp(38px,5vw,64px);
+}
+
+h2{
+  font-size:clamp(29px,3.5vw,44px);
+}
+
+h3{
+  font-size:21px;
+}
+
+p{
+  color:var(--muted);
+}
+
+.section-head p{
+  margin-top:13px;
+}
+
+.btn{
+  height:44px;
+  padding:0 19px;
+  border-radius:12px;
+  border:1px solid transparent;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:750;
+  font-size:14px;
+  transition:.25s ease;
+  white-space:nowrap;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--accent-dark);
+  transform:translateY(-2px);
+}
+
+.btn-outline{
+  border-color:var(--line);
+  background:var(--surface);
+  color:var(--text);
+}
+
+.btn-outline:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.navbar{
+  height:var(--nav-height);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav-inner{
+  height:100%;
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-weight:950;
+  font-size:20px;
+  letter-spacing:-.04em;
+}
+
+.logo-mark{
+  width:32px;
+  height:32px;
+  border-radius:10px;
+  background:var(--accent);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  flex:1;
+}
+
+.nav-links a{
+  padding:9px 11px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+  transition:.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active-link{
+  color:var(--text);
+  background:var(--surface2);
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.nav-contact{
+  height:44px;
+}
+
+.icon-btn{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  font-weight:800;
+}
+
+.menu-btn{
+  display:none;
+}
+
+.hero{
+  padding:82px 0 70px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:58px;
+}
+
+.hero-copy{
+  max-width:600px;
+}
+
+.hero-copy p{
+  max-width:560px;
+  font-size:17px;
+  margin:20px 0 26px;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.hero-visual{
+  position:relative;
+}
+
+.hero-image{
+  height:500px;
+  object-fit:cover;
+  border-radius:32px;
+  box-shadow:var(--shadow);
+}
+
+.floating-note{
+  position:absolute;
+  bottom:22px;
+  left:22px;
+  right:auto;
+  padding:14px 17px;
+  border-radius:16px;
+  background:rgba(255,253,248,.94);
+  color:#222;
+  box-shadow:0 15px 40px rgba(0,0,0,.15);
+  max-width:240px;
+}
+
+body.rtl .floating-note{
+  left:auto;
+  right:22px;
+}
+
+.floating-note strong{
+  display:block;
+  font-size:14px;
+}
+
+.floating-note span{
+  font-size:12px;
+  color:#777;
+}
+
+.split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:70px;
+}
+
+.split.reverse .split-image{
+  order:2;
+}
+
+.split.reverse .split-copy{
+  order:1;
+}
+
+.split-image img{
+  height:430px;
+  object-fit:cover;
+  border-radius:28px;
+  box-shadow:var(--shadow);
+}
+
+.split-copy{
+  max-width:540px;
+}
+
+.split-copy .eyebrow{
+  margin-bottom:14px;
+}
+
+.split-copy h2{
+  margin-bottom:16px;
+}
+
+.split-copy p{
+  margin-bottom:17px;
+}
+
+.check-list{
+  list-style:none;
+  display:grid;
+  gap:11px;
+  margin:22px 0 25px;
+}
+
+.check-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:14px;
+  color:var(--text);
+}
+
+.check{
+  width:22px;
+  height:22px;
+  flex:0 0 22px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:var(--surface2);
+  color:var(--accent);
+  font-size:12px;
+  font-weight:900;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 8px 30px rgba(30,28,22,.045);
+  transition:.3s ease;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.card-image{
+  height:235px;
+  object-fit:cover;
+}
+
+.card-body{
+  padding:21px;
+}
+
+.card-body h3{
+  margin-bottom:8px;
+}
+
+.card-body p{
+  font-size:14px;
+}
+
+.card-link{
+  display:inline-flex;
+  margin-top:15px;
+  color:var(--accent);
+  font-weight:800;
+  font-size:13px;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.stat{
+  text-align:center;
+  padding:28px 18px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:20px;
+}
+
+.stat strong{
+  display:block;
+  font-size:34px;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:8px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.feature{
+  padding:26px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:22px;
+}
+
+.feature-icon{
+  width:45px;
+  height:45px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:var(--surface2);
+  color:var(--accent);
+  margin-bottom:17px;
+  font-size:20px;
+}
+
+.feature h3{
+  margin-bottom:8px;
+}
+
+.feature p{
+  font-size:14px;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:1.1fr .9fr .9fr;
+  grid-template-rows:230px 230px;
+  gap:16px;
+}
+
+.gallery img{
+  height:100%;
+  object-fit:cover;
+  border-radius:22px;
+}
+
+.gallery img:first-child{
+  grid-row:1/3;
+}
+
+.cta{
+  padding:52px;
+  background:var(--dark);
+  color:#fff;
+  border-radius:30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.cta p{
+  color:rgba(255,255,255,.68);
+  margin-top:9px;
+}
+
+.cta .btn{
+  flex:0 0 auto;
+}
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.product-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:25px;
+  overflow:hidden;
+}
+
+.product-card img{
+  height:270px;
+  object-fit:cover;
+}
+
+.product-info{
+  padding:21px;
+}
+
+.product-info h3{
+  margin-bottom:7px;
+}
+
+.price{
+  margin-top:13px;
+  font-size:18px;
+  font-weight:900;
+  color:var(--accent);
+}
+
+.product-info .btn{
+  width:100%;
+  margin-top:15px;
+}
+
+.tag-showcase{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  align-items:center;
+  gap:55px;
+}
+
+.tag-stage{
+  min-height:430px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 30% 20%,rgba(223,112,83,.16),transparent 35%),
+    var(--surface);
+  border:1px solid var(--line);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+
+.tag-card{
+  width:250px;
+  height:165px;
+  border-radius:34px 34px 52px 34px;
+  background:#d9b77d;
+  box-shadow:0 25px 55px rgba(0,0,0,.20);
+  transform:rotate(-8deg);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+}
+
+.tag-hole{
+  position:absolute;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#8b7049;
+  box-shadow:inset 0 0 0 5px #d9b77d;
+}
+
+.tag-content strong{
+  display:block;
+  font-size:22px;
+  color:#33291d;
+}
+
+.tag-content span{
+  font-size:12px;
+  color:#584a37;
+}
+
+.designer-box{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:27px;
+  box-shadow:var(--shadow);
+}
+
+.control-group{
+  margin-bottom:22px;
+}
+
+.control-group label{
+  display:block;
+  font-weight:800;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.swatches{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.swatch{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:3px solid transparent;
+  box-shadow:0 0 0 1px var(--line);
+}
+
+.swatch.active{
+  border-color:var(--accent);
+}
+
+.shape-row{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.shape-btn{
+  height:40px;
+  padding:0 14px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface2);
+  color:var(--text);
+  font-size:13px;
+  font-weight:750;
+}
+
+.shape-btn.active{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select{
+  width:100%;
+  background:var(--surface);
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 13px;
+  outline:none;
+}
+
+textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--accent);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:30px;
+  align-items:start;
+}
+
+.contact-info{
+  display:grid;
+  gap:13px;
+}
+
+.contact-card{
+  padding:22px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:20px;
+}
+
+.contact-card small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+
+.contact-card strong{
+  font-size:15px;
+}
+
+.map{
+  width:100%;
+  height:330px;
+  border:0;
+  border-radius:23px;
+}
+
+.footer{
+  margin-top:40px;
+  border-top:1px solid var(--line);
+  padding:40px 0 25px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr .8fr 1.2fr;
+  gap:30px;
+}
+
+.footer h4{
+  margin-bottom:12px;
+}
+
+.footer p,
+.footer a{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.footer-links{
+  display:grid;
+  gap:7px;
+}
+
+.footer-bottom{
+  margin-top:30px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  font-size:12px;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
+.center-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:25px;
+}
+
+.mini-label{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:7px;
+}
+
+.progress-list{
+  display:grid;
+  gap:16px;
+}
+
+.progress-item{
+  display:grid;
+  gap:7px;
+}
+
+.progress-top{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  font-weight:750;
+}
+
+.progress{
+  height:8px;
+  background:var(--surface2);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  background:var(--accent);
+  border-radius:20px;
+}
+
+.quote{
+  padding:30px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:25px;
+  text-align:center;
+  max-width:850px;
+  margin:auto;
+}
+
+.quote p{
+  font-size:19px;
+  color:var(--text);
+  font-weight:650;
+}
+
+.quote span{
+  display:block;
+  margin-top:12px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+@media(max-width:1050px){
+  .nav-links{
+    gap:0;
+  }
+
+  .nav-links a{
+    padding:8px;
+    font-size:12px;
+  }
+
+  .hero-grid,
+  .split,
+  .tag-showcase{
+    gap:38px;
+  }
+}
+
+@media(max-width:900px){
+  .nav-links{
+    position:absolute;
+    top:var(--nav-height);
+    left:20px;
+    right:20px;
+    display:none;
+    padding:12px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .nav-links.open{
+    display:flex;
+  }
+
+  .nav-links a{
+    padding:12px;
+  }
+
+  .menu-btn{
+    display:grid;
+  }
+
+  .nav-contact{
+    display:none;
+  }
+
+  .hero-grid,
+  .split,
+  .tag-showcase,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-copy,
+  .split-copy{
+    max-width:none;
+    text-align:center;
+    margin:auto;
+  }
+
+  .hero-actions,
+  .check-list{
+    justify-content:center;
+  }
+
+  .split-image{
+    order:0!important;
+  }
+
+  .split.reverse .split-image{
+    order:0!important;
+  }
+
+  .split.reverse .split-copy{
+    order:0!important;
+  }
+
+  .split-image img{
+    height:360px;
+  }
+
+  .stat-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .card-grid,
+  .feature-grid,
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:620px){
+  .container{
+    width:min(100% - 28px,1180px);
+  }
+
+  .section{
+    padding:55px 0;
+  }
+
+  .hero{
+    padding:55px 0 45px;
+  }
+
+  h1{
+    font-size:38px;
+  }
+
+  h2{
+    font-size:30px;
+  }
+
+  .hero-copy p{
+    font-size:15px;
+  }
+
+  .hero-image{
+    height:350px;
+    border-radius:24px;
+  }
+
+  .split-image img{
+    height:300px;
+  }
+
+  .card-grid,
+  .feature-grid,
+  .products-grid,
+  .stat-grid,
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:190px 190px 190px;
+  }
+
+  .gallery img:first-child{
+    grid-row:auto;
+    grid-column:1/-1;
+  }
+
+  .cta{
+    padding:30px 22px;
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+  }
+
+  .tag-stage{
+    min-height:350px;
+  }
+
+  .tag-card{
+    transform:scale(.85) rotate(-8deg);
+  }
+}
+
+/* Small requested enhancements only */
+.hero-image.products-hero-image{object-fit:contain;background:var(--surface2);padding:14px;}
+.product-card img.adventure-image{object-fit:contain;background:var(--surface2);padding:12px;}
+.gallery img{min-width:0;}
+.hero-grid > *, .split > *, .tag-showcase > *, .contact-grid > *{min-width:0;}
+.social-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;}
+.social-link{width:38px;height:38px;border:1px solid var(--line);border-radius:11px;display:grid;place-items:center;background:var(--surface);color:var(--text);font-weight:800;font-size:14px;transition:.2s;}
+.social-link:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.newsletter{padding:18px 20px;border:1px solid var(--line);background:var(--surface);border-radius:18px;}
+.newsletter p{margin:6px 0 12px;}
+.newsletter-form{display:flex;gap:8px;}
+.newsletter-form input{flex:1;min-width:0;}
+#backToTop{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);box-shadow:var(--shadow);display:grid;place-items:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;z-index:1200;}
+#backToTop.show{opacity:1;visibility:visible;transform:none;}
+@media(max-width:620px){.newsletter-form{flex-direction:column}.newsletter-form .btn{width:100%;}.hero-image.products-hero-image{padding:8px;}.product-card img.adventure-image{padding:8px;}}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <div class="container nav-inner">
+
+    <a href="#home1" class="logo page-link" data-page="home1">
+      <span class="logo-mark">♥</span>
+      <span>PAWTAG</span>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home1" class="page-link active-link" data-page="home1">Home 01</a>
+      <a href="#home2" class="page-link" data-page="home2">Home 02</a>
+      <a href="#products" class="page-link" data-page="products">Products</a>
+      <a href="#designer" class="page-link" data-page="designer">Design Your Tag</a>
+      <a href="#bulk" class="page-link" data-page="bulk">Bulk Orders</a>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#contact" class="btn btn-primary nav-contact page-link" data-page="contact">
+        Contact Us
+      </a>
+
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
+      <button class="icon-btn" id="rtlBtn" aria-label="Toggle RTL">RTL</button>
+      <button class="icon-btn menu-btn" id="menuBtn">☰</button>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- =========================================================
+                         HOME 01
+========================================================= -->
+<main id="home1" class="page active">
+
+  <!-- 1 -->
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Smart pet identification</span>
+        <h1>A tag that keeps their story close.</h1>
+        <p>
+          Beautifully designed pet ID tags made for everyday adventures,
+          quick identification and the special bond you share with your companion.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+            Design Your Tag
+          </a>
+          <a href="#products" class="btn btn-outline page-link" data-page="products">
+            Explore Collection
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <img
+          class="hero-image"
+          src="https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=2200&q=90"
+          alt="Happy dog wearing a collar">
+
+        <div class="floating-note">
+          <strong>Made for real adventures</strong>
+          <span>Lightweight • Durable • Personal</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 2 -->
+  <section class="section">
+    <div class="container split reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=2200&q=90"
+          alt="Dogs enjoying an outdoor adventure">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Built for movement</span>
+        <h2>From morning walks to weekend trails.</h2>
+        <p>
+          Your pet's tag should feel like part of their everyday gear.
+          PAWTAG combines lightweight materials with a clean profile that
+          looks comfortable whether they are relaxing at home or exploring outside.
+        </p>
+
+        <ul class="check-list">
+          <li><span class="check">✓</span>Lightweight profile for everyday comfort</li>
+          <li><span class="check">✓</span>Readable personalization from both sides</li>
+          <li><span class="check">✓</span>Designed for collars and harnesses</li>
+        </ul>
+
+        <a href="#products" class="btn btn-primary page-link" data-page="products">
+          See Materials
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 3 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Made with purpose</span>
+        <h2>Small details make a big difference.</h2>
+        <p>
+          Every element is designed around visibility, comfort and durability,
+          so the tag works beautifully without getting in the way.
+        </p>
+      </div>
+
+      <div class="card-grid">
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1800&q=90"
+            alt="Small dog portrait">
+          <div class="card-body">
+            <h3>Clear identification</h3>
+            <p>
+              Important information stays easy to read when someone needs
+              to contact you quickly.
+            </p>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog outdoors">
+          <div class="card-body">
+            <h3>Adventure ready</h3>
+            <p>
+              A practical shape and strong construction make everyday use
+              simple and reliable.
+            </p>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=1800&q=90"
+            alt="Cat portrait">
+          <div class="card-body">
+            <h3>Designed for personality</h3>
+            <p>
+              Choose finishes and personalization that make the tag feel
+              genuinely yours.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4 -->
+  <section class="section">
+    <div class="container split reverse reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=2200&q=90"
+          alt="Dog with collar sitting outdoors">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Personal from the start</span>
+        <h2>Your pet's name deserves a design of its own.</h2>
+        <p>
+          Select a shape, choose a finish and add the information that matters.
+          The result is a simple everyday essential that still feels personal.
+        </p>
+
+        <div class="progress-list">
+          <div class="progress-item">
+            <div class="progress-top">
+              <span>Comfort-focused shape</span>
+              <span>96%</span>
+            </div>
+            <div class="progress"><i style="width:96%"></i></div>
+          </div>
+
+          <div class="progress-item">
+            <div class="progress-top">
+              <span>Personalization flexibility</span>
+              <span>92%</span>
+            </div>
+            <div class="progress"><i style="width:92%"></i></div>
+          </div>
+
+          <div class="progress-item">
+            <div class="progress-top">
+              <span>Everyday durability</span>
+              <span>95%</span>
+            </div>
+            <div class="progress"><i style="width:95%"></i></div>
+          </div>
+        </div>
+
+        <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+          Start Designing
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 5 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">The PAWTAG standard</span>
+        <h2>Designed around the moments that matter.</h2>
+      </div>
+
+      <div class="stat-grid">
+
+        <div class="stat reveal">
+          <strong>01</strong>
+          <span>Simple identification</span>
+        </div>
+
+        <div class="stat reveal">
+          <strong>02</strong>
+          <span>Comfort-first design</span>
+        </div>
+
+        <div class="stat reveal">
+          <strong>03</strong>
+          <span>Personal styling</span>
+        </div>
+
+        <div class="stat reveal">
+          <strong>04</strong>
+          <span>Adventure ready</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 6 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="cta reveal">
+        <div>
+          <h2>Make their next adventure unmistakably theirs.</h2>
+          <p>Explore the collection or create a personalized tag.</p>
+        </div>
+
+        <a href="#contact" class="btn btn-primary page-link" data-page="contact">
+          Contact Us
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- =========================================================
+                         HOME 02
+========================================================= -->
+<main id="home2" class="page">
+
+  <!-- 1 -->
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div class="hero-visual reveal">
+        <img
+          class="hero-image"
+          src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=2200&q=90"
+          alt="Golden retriever outdoors">
+
+        <div class="floating-note">
+          <strong>Personalized for them</strong>
+          <span>Name • Contact • Style</span>
+        </div>
+      </div>
+
+      <div class="hero-copy reveal">
+        <span class="eyebrow">A better everyday essential</span>
+        <h1>Beautiful protection for curious companions.</h1>
+        <p>
+          PAWTAG brings thoughtful personalization and modern design together
+          in a tag made to live comfortably on your pet's collar.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+            Create a Tag
+          </a>
+          <a href="#contact" class="btn btn-outline page-link" data-page="contact">
+            Talk to Us
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 2 -->
+  <section class="section">
+    <div class="container split reveal">
+
+      <div class="split-copy">
+        <span class="eyebrow">For every personality</span>
+        <h2>Minimal, playful or bold — make it theirs.</h2>
+        <p>
+          Your pet does not have to fit one style. Choose a finish and shape
+          that complements their personality while keeping the important
+          information visible.
+        </p>
+
+        <ul class="check-list">
+          <li><span class="check">✓</span>Clean modern silhouettes</li>
+          <li><span class="check">✓</span>Multiple finish directions</li>
+          <li><span class="check">✓</span>Personal details built around your needs</li>
+        </ul>
+      </div>
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1558929996-da64ba858215?auto=format&fit=crop&w=2200&q=90"
+          alt="Dog sitting comfortably at home">
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 3 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Designed around real life</span>
+        <h2>Three reasons pet parents choose personalization.</h2>
+      </div>
+
+      <div class="feature-grid">
+
+        <article class="feature reveal">
+          <div class="feature-icon">⌁</div>
+          <h3>Quick recognition</h3>
+          <p>
+            Clear information makes it easier for someone to recognize
+            your companion and contact you.
+          </p>
+        </article>
+
+        <article class="feature reveal">
+          <div class="feature-icon">✦</div>
+          <h3>Visual personality</h3>
+          <p>
+            The tag becomes part of your pet's look rather than feeling
+            like an afterthought.
+          </p>
+        </article>
+
+        <article class="feature reveal">
+          <div class="feature-icon">◌</div>
+          <h3>Everyday simplicity</h3>
+          <p>
+            A practical shape and straightforward details keep everyday
+            use uncomplicated.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4 -->
+  <section class="section">
+    <div class="container split reverse reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=2200&q=90"
+          alt="Cat wearing a collar">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Not only for dogs</span>
+        <h2>Small enough for little explorers.</h2>
+        <p>
+          From energetic dogs to indoor cats with an adventurous side,
+          PAWTAG designs can be adapted to different collar styles and
+          everyday routines.
+        </p>
+
+        <a href="#products" class="btn btn-primary page-link" data-page="products">
+          Browse Styles
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 5 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Everyday inspiration</span>
+        <h2>A tag should look at home wherever they go.</h2>
+      </div>
+
+      <div class="gallery">
+
+        <img
+          src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=2000&q=90"
+          alt="Dog outdoors">
+
+        <img
+          src="https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=1800&q=90"
+          alt="Dog portrait">
+
+        <img
+          src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1800&q=90"
+          alt="Dog outdoors">
+
+        <img
+          src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=1800&q=90"
+          alt="Dog walking">
+
+        <img
+          src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1800&q=90"
+          alt="Dog enjoying everyday life">
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 6 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="quote reveal">
+        <p>
+          “The best pet accessories disappear into everyday life —
+          until the moment you need them.”
+        </p>
+        <span>PAWTAG design philosophy</span>
+      </div>
+
+      <div class="center-actions">
+        <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+          Design Your Tag
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- =========================================================
+                         PRODUCTS
+========================================================= -->
+<main id="products" class="page">
+
+  <!-- 1 -->
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div class="hero-copy reveal">
+        <span class="eyebrow">The collection</span>
+        <h1>Choose a tag that fits their everyday.</h1>
+        <p>
+          Explore modern shapes, warm finishes and practical designs made
+          to complement different collars, personalities and routines.
+        </p>
+
+        <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+          Customize Yours
+        </a>
+      </div>
+
+      <div class="hero-visual reveal">
+        <img
+          class="hero-image products-hero-image"
+          data-fallback="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=2200&q=90"
+          src="https://images.unsplash.com/photo-1591769225440-811ad7d6eab2?auto=format&fit=crop&w=2200&q=90"
+          alt="Pet with stylish collar">
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 2 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Featured styles</span>
+        <h2>Three directions. One unmistakable PAWTAG.</h2>
+        <p>
+          Start with a silhouette that feels right, then personalize the details.
+        </p>
+      </div>
+
+      <div class="products-grid">
+
+        <article class="product-card reveal">
+          <img
+            src="https://images.unsplash.com/photo-1612536057832-2ff7ead58194?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog with collar">
+          <div class="product-info">
+            <h3>Classic Round</h3>
+            <p>A timeless profile for simple everyday identification.</p>
+            <div class="price">From ₹499</div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <img
+            src="https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=1800&q=90"
+            alt="Cat with collar">
+          <div class="product-info">
+            <h3>Soft Edge</h3>
+            <p>A refined silhouette designed for smaller companions.</p>
+            <div class="price">From ₹549</div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <img
+            src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog outdoors">
+          <div class="product-info">
+            <h3>Minimal Arch</h3>
+            <p>A clean, understated shape for everyday collars.</p>
+            <div class="price">From ₹579</div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <img
+            class="adventure-image"
+            data-fallback="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=2200&q=90"
+            src="https://images.unsplash.com/photo-1593134257782-e895f913cc9c?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog with colorful collar">
+          <div class="product-info">
+            <h3>Adventure Plate</h3>
+            <p>A confident shape for pets that never sit still.</p>
+            <div class="price">From ₹599</div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 3 -->
+  <section class="section">
+    <div class="container split reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=2200&q=90"
+          alt="Dog resting at home">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Comfort first</span>
+        <h2>Good design should feel effortless.</h2>
+        <p>
+          A pet tag spends its life moving with your companion. That is why
+          our shapes focus on balanced proportions, smooth visual profiles
+          and practical attachment points.
+        </p>
+
+        <ul class="check-list">
+          <li><span class="check">✓</span>Balanced lightweight construction</li>
+          <li><span class="check">✓</span>Rounded visual profile</li>
+          <li><span class="check">✓</span>Collar-friendly proportions</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4 -->
+  <section class="section">
+    <div class="container split reverse reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=2200&q=90"
+          alt="Dog running outdoors">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Adventure collection</span>
+        <h2>For pets that are always on the move.</h2>
+        <p>
+          Whether the day means a neighborhood walk or a full weekend outside,
+          choose a design that feels as energetic as your companion.
+        </p>
+
+        <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+          Build an Adventure Tag
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 5 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Material direction</span>
+        <h2>Details that keep the collection cohesive.</h2>
+      </div>
+
+      <div class="feature-grid">
+
+        <div class="feature reveal">
+          <div class="feature-icon">◈</div>
+          <h3>Clean finish</h3>
+          <p>
+            A smooth visual treatment keeps the tag contemporary
+            and easy to pair with different collars.
+          </p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-icon">◇</div>
+          <h3>Balanced form</h3>
+          <p>
+            Shapes are kept visually compact so the tag does not dominate
+            your pet's overall look.
+          </p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-icon">✧</div>
+          <h3>Personal detail</h3>
+          <p>
+            Your pet's name and contact information become part of the
+            design rather than an afterthought.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 6 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="cta reveal">
+        <div>
+          <h2>Can't decide? Create your own combination.</h2>
+          <p>Choose the shape, finish and information that fits your companion.</p>
+        </div>
+
+        <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+          Open Designer
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- =========================================================
+                       DESIGN YOUR TAG
+========================================================= -->
+<main id="designer" class="page">
+
+  <!-- 1 -->
+  <section class="hero">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Design your tag</span>
+        <h1>Create something made specifically for them.</h1>
+        <p>
+          Experiment with shape, finish and personalization before sending
+          your design request to the PAWTAG team.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 2 -->
+  <section class="section" style="padding-top:10px;">
+    <div class="container tag-showcase">
+
+      <div class="tag-stage reveal">
+
+        <div class="tag-card" id="tagPreview">
+
+          <div class="tag-hole"></div>
+
+          <div class="tag-content">
+            <strong id="previewName">LUNA</strong>
+            <span id="previewInfo">98765 43210</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="designer-box reveal">
+
+        <div class="control-group">
+          <label>Pet Name</label>
+          <input type="text" id="petName" value="LUNA" maxlength="18">
+        </div>
+
+        <div class="control-group">
+          <label>Contact Number</label>
+          <input type="text" id="petInfo" value="98765 43210" maxlength="20">
+        </div>
+
+        <div class="control-group">
+          <label>Tag Finish</label>
+
+          <div class="swatches">
+
+            <button
+              class="swatch active"
+              data-color="#d9b77d"
+              style="background:#d9b77d">
+            </button>
+
+            <button
+              class="swatch"
+              data-color="#252525"
+              style="background:#252525">
+            </button>
+
+            <button
+              class="swatch"
+              data-color="#e8e1d3"
+              style="background:#e8e1d3">
+            </button>
+
+            <button
+              class="swatch"
+              data-color="#a9b99f"
+              style="background:#a9b99f">
+            </button>
+
+            <button
+              class="swatch"
+              data-color="#d47a62"
+              style="background:#d47a62">
+            </button>
+
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Shape</label>
+
+          <div class="shape-row">
+
+            <button class="shape-btn active" data-shape="round">
+              Round
+            </button>
+
+            <button class="shape-btn" data-shape="square">
+              Soft Square
+            </button>
+
+            <button class="shape-btn" data-shape="shield">
+              Shield
+            </button>
+
+            <button class="shape-btn" data-shape="arch">
+              Arch
+            </button>
+
+            <button class="shape-btn" data-shape="bone">
+              Bone
+            </button>
+
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Font Family</label>
+          <div class="shape-row">
+            <button class="shape-btn font-btn active" data-font="Inter,ui-sans-serif,system-ui,sans-serif">Modern Sans</button>
+            <button class="shape-btn font-btn" data-font="Georgia,serif">Classic Serif</button>
+            <button class="shape-btn font-btn" data-font="Trebuchet MS,sans-serif">Friendly</button>
+            <button class="shape-btn font-btn" data-font="Courier New,monospace">Mono</button>
+            <button class="shape-btn font-btn" data-font="Arial Black,sans-serif">Bold</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;" id="saveDesign">
+          Send Design Request
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 3 -->
+  <section class="section">
+    <div class="container split reveal">
+
+      <div class="split-copy">
+        <span class="eyebrow">Step 01</span>
+        <h2>Start with the information that matters.</h2>
+        <p>
+          A good ID tag keeps the most useful details easy to understand.
+          Begin with your pet's name and a reliable contact number.
+        </p>
+
+        <ul class="check-list">
+          <li><span class="check">1</span>Add their name</li>
+          <li><span class="check">2</span>Add your preferred contact number</li>
+          <li><span class="check">3</span>Choose the visual direction</li>
+        </ul>
+      </div>
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?auto=format&fit=crop&w=2200&q=90"
+          alt="Dog walking with owner">
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4 -->
+  <section class="section">
+    <div class="container split reverse reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=2200&q=90"
+          alt="Dog relaxing outdoors">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Step 02</span>
+        <h2>Choose a shape that matches their personality.</h2>
+        <p>
+          A rounded silhouette feels friendly and timeless, a soft square
+          brings a modern character, while a shield-inspired shape creates
+          a more adventurous visual identity.
+        </p>
+
+        <a href="#contact" class="btn btn-primary page-link" data-page="contact">
+          Discuss Custom Options
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 5 -->
+  <section class="section">
+    <div class="container split reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=2200&q=90"
+          alt="Happy dog portrait">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Step 03</span>
+        <h2>Finish it with a look that feels like them.</h2>
+        <p>
+          Warm neutrals, clean dark tones and soft natural finishes let you
+          create a tag that works with your pet's existing collar and style.
+        </p>
+
+        <div class="stat-grid" style="grid-template-columns:repeat(2,1fr);margin-top:20px;">
+          <div class="stat">
+            <strong>5</strong>
+            <span>Finish directions</span>
+          </div>
+
+          <div class="stat">
+            <strong>3</strong>
+            <span>Shape options</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 6 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="cta reveal">
+        <div>
+          <h2>Your design is only a few choices away.</h2>
+          <p>Build your concept and send it to our team for the next step.</p>
+        </div>
+
+        <a href="#contact" class="btn btn-primary page-link" data-page="contact">
+          Contact PAWTAG
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- =========================================================
+                         BULK ORDERS
+========================================================= -->
+<main id="bulk" class="page">
+
+  <!-- 1 -->
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Bulk & wholesale</span>
+        <h1>Thoughtful tags for teams, stores and communities.</h1>
+        <p>
+          Need a larger quantity of personalized tags?
+          PAWTAG can help coordinate styles, quantities and customization
+          requirements for larger orders.
+        </p>
+
+        <a href="#contact" class="btn btn-primary page-link" data-page="contact">
+          Request a Quote
+        </a>
+      </div>
+
+      <div class="hero-visual reveal">
+        <img
+          class="hero-image"
+          src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=2200&q=90"
+          alt="Dogs together">
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 2 -->
+  <section class="section">
+    <div class="container split reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=2200&q=90"
+          alt="Group of dogs">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Flexible quantities</span>
+        <h2>Built around the size of your project.</h2>
+        <p>
+          Whether you are preparing merchandise for a pet business,
+          creating tags for a community or building a branded collection,
+          we can organize the order around your requirements.
+        </p>
+
+        <ul class="check-list">
+          <li><span class="check">✓</span>Multiple quantities and styles</li>
+          <li><span class="check">✓</span>Custom information requirements</li>
+          <li><span class="check">✓</span>Coordinated order discussions</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 3 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Bulk workflow</span>
+        <h2>A simple process from idea to order.</h2>
+      </div>
+
+      <div class="feature-grid">
+
+        <div class="feature reveal">
+          <div class="feature-icon">01</div>
+          <h3>Tell us what you need</h3>
+          <p>
+            Share quantity, preferred styles, personalization and
+            expected timeline.
+          </p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-icon">02</div>
+          <h3>Review the direction</h3>
+          <p>
+            Our team works through the design requirements and confirms
+            the practical details.
+          </p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-icon">03</div>
+          <h3>Move forward</h3>
+          <p>
+            Once the details are agreed, the order can move into
+            the next production stage.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4 -->
+  <section class="section">
+    <div class="container split reverse reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=2200&q=90"
+          alt="Dog running in a field">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">For pet businesses</span>
+        <h2>Create a consistent experience across your collection.</h2>
+        <p>
+          Keep your product presentation consistent by using a coordinated
+          visual direction across multiple tag designs.
+        </p>
+
+        <a href="#contact" class="btn btn-primary page-link" data-page="contact">
+          Discuss Your Project
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 5 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Project planning</span>
+        <h2>Important details we can organize together.</h2>
+      </div>
+
+      <div class="card-grid">
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8?auto=format&fit=crop&w=1800&q=90"
+            alt="Pet with owner">
+          <div class="card-body">
+            <h3>Quantity planning</h3>
+            <p>
+              Tell us the approximate volume and we can structure the
+              conversation around your requirements.
+            </p>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog outdoors">
+          <div class="card-body">
+            <h3>Personalization</h3>
+            <p>
+              Coordinate naming, contact details or other information
+              required for your collection.
+            </p>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog portrait">
+          <div class="card-body">
+            <h3>Visual consistency</h3>
+            <p>
+              Build a collection that feels connected across your
+              store, event or pet community.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 6 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="cta reveal">
+        <div>
+          <h2>Planning a larger PAWTAG project?</h2>
+          <p>Send us your requirements and we'll start the conversation.</p>
+        </div>
+
+        <a href="#contact" class="btn btn-primary page-link" data-page="contact">
+          Get in Touch
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- =========================================================
+                         CONTACT
+========================================================= -->
+<main id="contact" class="page">
+
+  <!-- 1 -->
+  <section class="hero">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Let's talk</span>
+        <h1>Tell us what you need.</h1>
+        <p>
+          Questions about products, personalization, bulk orders or custom
+          requirements? Send us a message.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 2 -->
+  <section class="section" style="padding-top:20px;">
+    <div class="container contact-grid">
+
+      <div class="contact-info reveal">
+
+        <div class="contact-card">
+          <small>Email</small>
+          <strong>hello@pawtag.example</strong>
+        </div>
+
+        <div class="contact-card">
+          <small>Phone</small>
+          <strong>+91 98765 43210</strong>
+        </div>
+
+        <div class="contact-card">
+          <small>Address</small>
+          <strong>Hyderabad, Telangana, India</strong>
+        </div>
+
+        <div class="contact-card">
+          <small>Business Hours</small>
+          <strong>Mon — Sat · 9:00 AM — 6:00 PM</strong>
+        </div>
+
+        <div class="contact-card">
+          <small>Follow PAWTAG</small>
+          <div class="social-links" aria-label="PAWTAG social media">
+            <a class="social-link" href="#" aria-label="Instagram">◎</a>
+            <a class="social-link" href="#" aria-label="Facebook">f</a>
+            <a class="social-link" href="#" aria-label="Pinterest">P</a>
+            <a class="social-link" href="#" aria-label="TikTok">♪</a>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="designer-box reveal">
+
+        <form id="contactForm">
+
+          <div class="form-grid">
+
+            <div>
+              <div class="mini-label">Your Name</div>
+              <input type="text" required placeholder="Enter your name">
+            </div>
+
+            <div>
+              <div class="mini-label">Email Address</div>
+              <input type="email" required placeholder="you@example.com">
+            </div>
+
+            <div>
+              <div class="mini-label">Phone</div>
+              <input type="tel" placeholder="+91">
+            </div>
+
+            <div>
+              <div class="mini-label">Enquiry Type</div>
+              <select>
+                <option>Product enquiry</option>
+                <option>Custom tag</option>
+                <option>Bulk order</option>
+                <option>Wholesale</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="full">
+              <div class="mini-label">Message</div>
+              <textarea required placeholder="Tell us about your requirement..."></textarea>
+            </div>
+
+            <div class="full">
+              <button class="btn btn-primary" style="width:100%;">
+                Send Message
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 3 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">What we can help with</span>
+        <h2>One place for your PAWTAG questions.</h2>
+      </div>
+
+      <div class="feature-grid">
+
+        <div class="feature reveal">
+          <div class="feature-icon">✦</div>
+          <h3>Custom designs</h3>
+          <p>
+            Discuss shapes, finishes and personalization requirements.
+          </p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-icon">▦</div>
+          <h3>Bulk orders</h3>
+          <p>
+            Tell us about quantities and project requirements for larger orders.
+          </p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-icon">?</div>
+          <h3>General questions</h3>
+          <p>
+            Ask about the collection, ordering process or anything else.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Find us</span>
+        <h2>Based in Hyderabad, serving pet parents everywhere.</h2>
+      </div>
+
+      <iframe
+        class="map reveal"
+        src="https://www.google.com/maps?q=Hyderabad%20Telangana&output=embed"
+        loading="lazy"
+        title="PAWTAG location">
+      </iframe>
+
+    </div>
+  </section>
+
+
+  <!-- 5 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="quote reveal">
+        <p>
+          “Have a specific idea in mind? Tell us the outcome you're looking
+          for and we'll help you work through the details.”
+        </p>
+        <span>PAWTAG support team</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 6 -->
+  <section class="section">
+    <div class="container">
+
+      <div class="cta reveal">
+        <div>
+          <h2>Ready to start your next PAWTAG project?</h2>
+          <p>Send your requirements and let's create something useful and personal.</p>
+        </div>
+
+        <a href="#home1" class="btn btn-primary page-link" data-page="home1">
+          Explore PAWTAG
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+        <a href="#home1" class="logo page-link" data-page="home1">
+          <span class="logo-mark">♥</span>
+          <span>PAWTAG</span>
+        </a>
+
+        <p style="margin-top:13px;max-width:360px;">
+          Modern personalized pet ID tags designed around comfort,
+          identification and everyday adventures.
+        </p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+
+        <div class="footer-links">
+          <a href="#home1" class="page-link" data-page="home1">Home 01</a>
+          <a href="#home2" class="page-link" data-page="home2">Home 02</a>
+          <a href="#products" class="page-link" data-page="products">Products</a>
+          <a href="#designer" class="page-link" data-page="designer">Design Your Tag</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Contact</h4>
+
+        <div class="footer-links">
+          <a href="#bulk" class="page-link" data-page="bulk">Bulk Orders</a>
+          <a href="#contact" class="page-link" data-page="contact">Contact</a>
+          <a href="mailto:hello@pawtag.example">hello@pawtag.example</a>
+        </div>
+
+        <div class="social-links" aria-label="PAWTAG social media">
+          <a class="social-link" href="#" aria-label="Instagram">◎</a>
+          <a class="social-link" href="#" aria-label="Facebook">f</a>
+          <a class="social-link" href="#" aria-label="Pinterest">P</a>
+          <a class="social-link" href="#" aria-label="TikTok">♪</a>
+        </div>
+      </div>
+
+      <div class="newsletter">
+        <h4>Newsletter</h4>
+        <p>Occasional PAWTAG updates and new design ideas.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" required placeholder="Your email" aria-label="Your email">
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 PAWTAG. All rights reserved.</span>
+      <span>Designed for pets. Made for people.</span>
+    </div>
+
+  </div>
+
+</footer>
+
+<button id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
+
+<script>
+
+/* =========================================================
+                     PAGE ROUTING
+========================================================= */
+
+const pages = document.querySelectorAll(".page");
+const pageLinks = document.querySelectorAll(".page-link");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+function showPage(pageId){
+
+  pages.forEach(page=>{
+    page.classList.remove("active");
+  });
+
+  const selected = document.getElementById(pageId);
+
+  if(selected){
+    selected.classList.add("active");
+  }else{
+    document.getElementById("home1").classList.add("active");
+    pageId = "home1";
+  }
+
+  navLinks.forEach(link=>{
+    link.classList.toggle(
+      "active-link",
+      link.dataset.page === pageId
+    );
+  });
+
+  document.getElementById("navLinks").classList.remove("open");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  setTimeout(initReveal,100);
+}
+
+
+pageLinks.forEach(link=>{
+
+  link.addEventListener("click",event=>{
+
+    const page = link.dataset.page;
+
+    if(!page) return;
+
+    event.preventDefault();
+
+    history.pushState({}, "", "#" + page);
+
+    showPage(page);
+
+  });
+
+});
+
+
+window.addEventListener("popstate",()=>{
+  const page = location.hash.replace("#","") || "home1";
+  showPage(page);
+});
+
+window.addEventListener("hashchange",()=>{
+  const page = location.hash.replace("#","") || "home1";
+  showPage(page);
+});
+
+
+/* =========================================================
+                     MOBILE MENU
+========================================================= */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinksBox = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click",()=>{
+  navLinksBox.classList.toggle("open");
+});
+
+
+/* =========================================================
+                     DARK MODE
+========================================================= */
+
+const themeBtn = document.getElementById("themeBtn");
+
+function updateThemeButton(){
+
+  if(document.body.classList.contains("dark")){
+    themeBtn.textContent = "☀";
+  }else{
+    themeBtn.textContent = "☾";
+  }
+
+}
+
+themeBtn.addEventListener("click",()=>{
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "pawtag-theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+
+  updateThemeButton();
+
+});
+
+
+if(localStorage.getItem("pawtag-theme") === "dark"){
+  document.body.classList.add("dark");
+}
+
+updateThemeButton();
+
+
+/* =========================================================
+                         RTL
+========================================================= */
+
+const rtlBtn = document.getElementById("rtlBtn");
+
+rtlBtn.addEventListener("click",()=>{
+
+  document.body.classList.toggle("rtl");
+
+  localStorage.setItem(
+    "pawtag-rtl",
+    document.body.classList.contains("rtl") ? "rtl" : "ltr"
+  );
+
+});
+
+
+if(localStorage.getItem("pawtag-rtl") === "rtl"){
+  document.body.classList.add("rtl");
+}
+
+
+/* =========================================================
+                     SCROLL REVEAL
+========================================================= */
+
+let observer;
+
+function initReveal(){
+
+  if(observer){
+    observer.disconnect();
+  }
+
+  observer = new IntersectionObserver(entries=>{
+
+    entries.forEach(entry=>{
+
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+      }
+
+    });
+
+  },{
+    threshold:.12
+  });
+
+  document
+    .querySelectorAll(".page.active .reveal")
+    .forEach(el=>observer.observe(el));
+
+}
+
+initReveal();
+
+
+/* =========================================================
+                     DESIGNER
+========================================================= */
+
+const petName = document.getElementById("petName");
+const petInfo = document.getElementById("petInfo");
+
+const previewName = document.getElementById("previewName");
+const previewInfo = document.getElementById("previewInfo");
+const tagPreview = document.getElementById("tagPreview");
+
+
+function updatePreview(){
+
+  previewName.textContent =
+    petName.value.trim().toUpperCase() || "YOUR PET";
+
+  previewInfo.textContent =
+    petInfo.value.trim() || "CONTACT NUMBER";
+
+}
+
+
+petName.addEventListener("input",updatePreview);
+petInfo.addEventListener("input",updatePreview);
+
+
+/* COLORS */
+
+document.querySelectorAll(".swatch").forEach(swatch=>{
+
+  swatch.addEventListener("click",()=>{
+
+    document.querySelectorAll(".swatch")
+      .forEach(item=>item.classList.remove("active"));
+
+    swatch.classList.add("active");
+
+    tagPreview.style.background = swatch.dataset.color;
+
+  });
+
+});
+
+
+/* SHAPES */
+
+document.querySelectorAll(".shape-btn").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    document.querySelectorAll(".shape-btn")
+      .forEach(item=>item.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    const shape = btn.dataset.shape;
+
+    if(shape === "round"){
+
+      tagPreview.style.borderRadius =
+        "34px 34px 52px 34px";
+
+      tagPreview.style.transform =
+        "rotate(-8deg)";
+
+    }
+
+    if(shape === "square"){
+
+      tagPreview.style.borderRadius =
+        "25px";
+
+      tagPreview.style.transform =
+        "rotate(-4deg)";
+
+    }
+
+    if(shape === "shield"){
+
+      tagPreview.style.borderRadius =
+        "28px 28px 65px 65px";
+
+      tagPreview.style.transform =
+        "rotate(0deg)";
+
+    }
+
+  });
+
+});
+
+
+/* FONTS */
+document.querySelectorAll(".font-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".font-btn").forEach(item=>item.classList.remove("active"));
+    btn.classList.add("active");
+    tagPreview.style.fontFamily = btn.dataset.font;
+  });
+});
+
+/* EXTRA SHAPES */
+document.querySelectorAll(".shape-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const shape = btn.dataset.shape;
+    if(shape === "arch"){
+      tagPreview.style.borderRadius = "130px 130px 28px 28px";
+      tagPreview.style.transform = "rotate(0deg)";
+    }
+    if(shape === "bone"){
+      tagPreview.style.borderRadius = "55px";
+      tagPreview.style.transform = "rotate(-5deg)";
+    }
+  });
+});
+
+/* NEWSLETTER */
+const newsletterForm = document.getElementById("newsletterForm");
+if(newsletterForm){
+  newsletterForm.addEventListener("submit",event=>{
+    event.preventDefault();
+    alert("Thank you for subscribing to PAWTAG updates.");
+    event.target.reset();
+  });
+}
+
+/* BACK TO TOP */
+const backToTop = document.getElementById("backToTop");
+window.addEventListener("scroll",()=>{
+  backToTop.classList.toggle("show",window.scrollY > 450);
+},{passive:true});
+backToTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+/* DESIGN REQUEST */
+
+document.getElementById("saveDesign")
+.addEventListener("click",()=>{
+
+  const name =
+    petName.value.trim() || "your pet";
+
+  alert(
+    "Thanks! Your design request for " +
+    name +
+    " has been prepared. Please contact PAWTAG to continue."
+  );
+
+});
+
+
+/* =========================================================
+                     CONTACT FORM
+========================================================= */
+
+document.getElementById("contactForm")
+.addEventListener("submit",event=>{
+
+  event.preventDefault();
+
+  alert(
+    "Thank you! Your message has been received. " +
+    "The PAWTAG team will contact you soon."
+  );
+
+  event.target.reset();
+
+});
+
+
+/* =========================================================
+                  INITIAL PAGE
+========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  const initialPage =
+    location.hash.replace("#","") || "home1";
+
+  showPage(initialPage);
+
+});
+
+
+/* =========================================================
+                  IMAGE FALLBACK
+========================================================= */
+
+document.querySelectorAll("img").forEach(img=>{
+
+  img.addEventListener("error",()=>{
+
+    const fallback = img.dataset.fallback;
+
+    if(fallback && img.src !== fallback){
+      img.src = fallback;
+      return;
+    }
+
+    img.style.background =
+      "linear-gradient(135deg,#ddd5c8,#f3eee5)";
+
+    img.removeAttribute("src");
+
+    img.alt = "PAWTAG visual";
+
+  },{once:false});
+
+});
+
+</script>
+
+</body>
+</html>
