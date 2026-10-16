@@ -1313,10 +1313,10 @@
     }
 
     .team-img {
-      height: 240px;
+      height: 280px;
       width: 100%;
       object-fit: cover;
-      object-position: center 20%;
+      object-position: center center;
       display: block;
     }
 
@@ -1372,6 +1372,11 @@
       .team-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .team-img {
+        height: 340px;
+        object-position: center center;
+      }
     }
 
     @media(max-width:620px) {
@@ -1384,7 +1389,8 @@
       }
 
       .team-img {
-        height: 220px;
+        height: 320px;
+        object-position: center center;
       }
     }
 
@@ -2152,34 +2158,8 @@
       font-size: 13px;
     }
 
-    @media(max-width:1050px) {
-      .nav-links {
-        gap: 0;
-      }
-
-      .nav-links a {
-        padding: 8px;
-        font-size: 12px;
-      }
-
-      .hero-grid,
-      .split,
-      .tag-showcase {
-        gap: 38px;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-      }
-
-      .card-grid,
-      .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media(max-width:900px) {
+    /* Navigation Hamburger Menu Option: 300px to 1100px */
+    @media(max-width:1100px) {
       .nav-actions {
         margin-left: auto;
         margin-right: 0;
@@ -2238,24 +2218,7 @@
       }
 
       .menu-close-btn {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: 1px solid var(--line);
-        background: var(--surface2);
-        color: var(--text);
-        display: grid;
-        place-items: center;
-        font-size: 15px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: .2s ease;
-      }
-
-      .menu-close-btn:hover {
-        background: var(--accent);
-        color: #fff;
-        border-color: var(--accent);
+        display: none !important;
       }
 
       .nav-links a {
@@ -2301,6 +2264,60 @@
       .nav-contact {
         display: none;
       }
+    }
+
+    @media(max-width:400px) {
+      .nav-inner {
+        gap: 8px;
+      }
+
+      .logo {
+        font-size: 18px;
+        gap: 6px;
+      }
+
+      .logo-mark {
+        width: 28px;
+        height: 28px;
+        font-size: 15px;
+      }
+
+      .icon-btn {
+        width: 38px;
+        height: 38px;
+      }
+
+      .nav-actions {
+        gap: 5px;
+      }
+
+      .nav-links {
+        left: 12px;
+        right: 12px;
+        padding: 14px;
+      }
+    }
+
+    @media(max-width:1050px) {
+
+      .hero-grid,
+      .split,
+      .tag-showcase {
+        gap: 38px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .card-grid,
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width:900px) {
 
       .hero-grid,
       .split,
@@ -2348,8 +2365,8 @@
 
     @media(min-width:621px) and (max-width:1050px) {
 
-      .card-grid>*:nth-child(3),
-      .feature-grid>*:nth-child(3) {
+      .card-grid>*:nth-child(3):last-child,
+      .feature-grid>*:nth-child(3):last-child {
         grid-column: 1/-1;
         justify-self: center;
         width: 100%;
@@ -2630,6 +2647,108 @@
         padding: 8px;
       }
     }
+
+    /* Equal button sizing in hero sections on mobile view */
+    @media(max-width:768px) {
+
+      .hero-actions,
+      #about .hero-actions,
+      #designer .hero-actions,
+      #contact .hero-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 380px;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 12px;
+      }
+
+      .hero-actions .btn,
+      #about .hero-actions .btn,
+      #designer .hero-actions .btn,
+      #contact .hero-actions .btn {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+    }
+
+    /* Bulk hero image & uncropped framing */
+    .hero-image.bulk-hero-image {
+      object-fit: cover;
+      object-position: center 22%;
+    }
+
+    #bulk .floating-note {
+      left: auto;
+      right: 20px;
+      bottom: 20px;
+      max-width: 250px;
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    body.rtl #bulk .floating-note {
+      left: 20px;
+      right: auto;
+    }
+
+    @media(max-width:620px) {
+      .hero-image.bulk-hero-image {
+        height: 380px;
+        object-position: center 22%;
+      }
+
+      #bulk .floating-note {
+        left: 16px;
+        right: 16px;
+        max-width: none;
+      }
+    }
+
+    /* Styled for every companion grid alignment in tab view (1024px) */
+    .styled-companion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .styled-companion-grid .card-image {
+      height: 250px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media(max-width:1050px) and (min-width:621px) {
+      .styled-companion-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+
+      .styled-companion-grid>* {
+        grid-column: auto !important;
+        justify-self: stretch !important;
+        width: 100% !important;
+        max-width: none !important;
+      }
+
+      .styled-companion-grid .card-image {
+        height: 290px !important;
+      }
+    }
+
+    @media(max-width:620px) {
+      .styled-companion-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .styled-companion-grid .card-image {
+        height: 260px !important;
+      }
+    }
   </style>
 </head>
 
@@ -2652,7 +2771,6 @@
       <div class="nav-links" id="navLinks">
         <div class="menu-header">
           <span class="menu-title">Menu</span>
-          <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close menu">✕</button>
         </div>
         <a href="#home1" class="page-link active-link" data-page="home1">Home 01</a>
         <a href="#home2" class="page-link" data-page="home2">Home 02</a>
@@ -3685,9 +3803,7 @@
         <div class="team-grid">
 
           <div class="team-card reveal">
-            <img class="team-img"
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=90"
-              alt="Maya Raghavan - Co-Founder & Master Engraver">
+            <img class="team-img" src="team_maya.jpg" alt="Maya Raghavan - Co-Founder & Master Engraver">
             <div class="team-body">
               <h3>Maya Raghavan</h3>
               <span class="team-role">Founder & Master Engraver</span>
@@ -3700,9 +3816,7 @@
           </div>
 
           <div class="team-card reveal">
-            <img class="team-img"
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=90"
-              alt="Daniel Chen - Hardware Designer">
+            <img class="team-img" src="Daniel Chen.jfif" alt="Daniel Chen - Hardware Designer">
             <div class="team-body">
               <h3>Daniel Chen</h3>
               <span class="team-role">Hardware Designer</span>
@@ -3715,9 +3829,7 @@
           </div>
 
           <div class="team-card reveal">
-            <img class="team-img"
-              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=90"
-              alt="Ananya Patel - Materials & Quality Lead">
+            <img class="team-img" src="Ananya Patel.jfif" alt="Ananya Patel - Materials & Quality Lead">
             <div class="team-body">
               <h3>Ananya Patel</h3>
               <span class="team-role">Materials & Quality Lead</span>
@@ -3730,9 +3842,7 @@
           </div>
 
           <div class="team-card reveal">
-            <img class="team-img"
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=90"
-              alt="Sam Reynolds - Customer Care Specialist">
+            <img class="team-img" src="Sam Reynolds1.webp" alt="Sam Reynolds - Customer Care Specialist">
             <div class="team-body">
               <h3>Sam Reynolds</h3>
               <span class="team-role">Customer Care & Reunions</span>
@@ -4297,10 +4407,10 @@
           <p>Different coats, collar styles, and tag shapes crafted with love.</p>
         </div>
 
-        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+        <div class="card-grid styled-companion-grid">
           <article class="card reveal">
             <img class="card-image" src="onltag.jfif" alt="Golden retriever wearing adventure collar and green tag"
-              style="height:220px;width:100%;object-fit:cover;object-position:center 35%;">
+              style="object-position: center 20%;">
             <div class="card-body">
               <span class="product-card-badge" style="position:static;display:inline-block;margin-bottom:8px;">Adventure
                 Collar</span>
@@ -4311,7 +4421,7 @@
 
           <article class="card reveal">
             <img class="card-image" src="quite.jfif" alt="White kitten wearing yellow collar with custom engraved tag"
-              style="height:220px;width:100%;object-fit:cover;object-position:center 30%;">
+              style="object-position: center 20%;">
             <div class="card-body">
               <span class="product-card-badge"
                 style="position:static;display:inline-block;margin-bottom:8px;">Lightweight Petite</span>
@@ -4323,7 +4433,7 @@
           <article class="card reveal">
             <img class="card-image" src="hom21.jpg"
               alt="Terrier companion wearing red collar with slide-on silicone engraved tag"
-              style="height:220px;width:100%;object-fit:cover;object-position:top left;">
+              style="object-position: center 10%;">
             <div class="card-body">
               <span class="product-card-badge" style="position:static;display:inline-block;margin-bottom:8px;">No-Dangle
                 Slide-On</span>
@@ -4334,8 +4444,7 @@
 
           <article class="card reveal">
             <img class="card-image" src="Luxe Crest 22.webp"
-              alt="Denim collar with solid brass mountain silhouette hexagon tag"
-              style="height:220px;width:100%;object-fit:cover;object-position:center;">
+              alt="Denim collar with solid brass mountain silhouette hexagon tag" style="object-position: center 30%;">
             <div class="card-body">
               <span class="product-card-badge" style="position:static;display:inline-block;margin-bottom:8px;">Artisan
                 Hexagon</span>
@@ -4393,9 +4502,8 @@
         </div>
 
         <div class="hero-visual reveal">
-          <img class="hero-image" src="dch2.jfif"
-            alt="Happy golden retriever wearing vibrant blue collar with custom engraved pink paw pet tag"
-            style="object-position: center 25%;">
+          <img class="hero-image bulk-hero-image" src="dch2.jfif"
+            alt="Happy golden retriever wearing vibrant blue collar with custom engraved pink paw pet tag">
 
           <div class="floating-note">
             <strong>Community & Rescue Packs</strong>
