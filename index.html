@@ -11,6 +11,8 @@
   --bg:#f6f2ea;
   --surface:#fffdf8;
   --surface2:#eee8dc;
+  --section-alt:#ede6d9;
+  --section-alt-border:rgba(32,33,30,.07);
   --text:#20211e;
   --muted:#74736d;
   --line:rgba(32,33,30,.12);
@@ -28,6 +30,8 @@ body.dark{
   --bg:#171816;
   --surface:#20221f;
   --surface2:#292b27;
+  --section-alt:#1d1e1c;
+  --section-alt-border:rgba(255,255,255,.07);
   --text:#f4f0e7;
   --muted:#aaa89f;
   --line:rgba(255,255,255,.11);
@@ -98,6 +102,50 @@ button{
 
 .section{
   padding:76px 0;
+  position:relative;
+}
+
+/* =========================================================
+             ALTERNATING SECTION COLOR SYSTEM
+========================================================= */
+
+main > section.section:nth-of-type(even),
+main > section:nth-of-type(even):not(.hero){
+  background:var(--section-alt);
+  border-top:1px solid var(--section-alt-border);
+  border-bottom:1px solid var(--section-alt-border);
+}
+
+main > section:nth-of-type(even) .card,
+main > section:nth-of-type(even) .feature,
+main > section:nth-of-type(even) .stat,
+main > section:nth-of-type(even) .product-card,
+main > section:nth-of-type(even) .material-card,
+main > section:nth-of-type(even) .process-card,
+main > section:nth-of-type(even) .promise-card,
+main > section:nth-of-type(even) .team-card,
+main > section:nth-of-type(even) .contact-card,
+main > section:nth-of-type(even) .designer-box,
+main > section:nth-of-type(even) .tag-stage,
+main > section:nth-of-type(even) .form-box{
+  background:var(--surface);
+  box-shadow:0 10px 32px rgba(35,31,23,.06);
+}
+
+body.dark main > section:nth-of-type(even) .card,
+body.dark main > section:nth-of-type(even) .feature,
+body.dark main > section:nth-of-type(even) .stat,
+body.dark main > section:nth-of-type(even) .product-card,
+body.dark main > section:nth-of-type(even) .material-card,
+body.dark main > section:nth-of-type(even) .process-card,
+body.dark main > section:nth-of-type(even) .promise-card,
+body.dark main > section:nth-of-type(even) .team-card,
+body.dark main > section:nth-of-type(even) .contact-card,
+body.dark main > section:nth-of-type(even) .designer-box,
+body.dark main > section:nth-of-type(even) .tag-stage,
+body.dark main > section:nth-of-type(even) .form-box{
+  background:var(--surface);
+  box-shadow:0 10px 32px rgba(0,0,0,.3);
 }
 
 .section-head{
@@ -277,7 +325,16 @@ p{
 }
 
 .hero{
-  padding:82px 0 70px;
+  padding:54px 0;
+  min-height:580px;
+  display:flex;
+  align-items:center;
+  box-sizing:border-box;
+}
+
+.hero > .container{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
 }
 
 .hero-grid{
@@ -285,6 +342,8 @@ p{
   grid-template-columns:1fr 1fr;
   align-items:center;
   gap:58px;
+  min-height:480px;
+  width:100%;
 }
 
 .hero-copy{
@@ -314,7 +373,8 @@ p{
 }
 
 .hero-image{
-  height:500px;
+  height:480px;
+  width:100%;
   object-fit:cover;
   border-radius:32px;
   box-shadow:var(--shadow);
@@ -347,6 +407,945 @@ body.rtl .floating-note{
   font-size:12px;
   color:#777;
 }
+
+/* =========================================================
+                 HOME 02 DISTINCT HERO SECTION
+========================================================= */
+
+.hero.hero2{
+  padding:44px 0 48px;
+  min-height:580px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  box-sizing:border-box;
+}
+
+.hero2-masthead{
+  max-width:880px;
+  margin:0 auto 32px;
+  text-align:center;
+}
+
+.hero2-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 16px;
+  border-radius:100px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.04em;
+  color:var(--text);
+  box-shadow:0 3px 12px rgba(0,0,0,.03);
+  margin-bottom:18px;
+}
+
+.hero2-badge-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 26%,transparent);
+  animation:hero2Pulse 2s infinite ease-in-out;
+}
+
+@keyframes hero2Pulse{
+  0%,100%{transform:scale(1);opacity:1;}
+  50%{transform:scale(1.2);opacity:.75;}
+}
+
+.hero2-badge-divider{
+  color:var(--muted);
+  opacity:.6;
+}
+
+.hero2-badge-highlight{
+  color:var(--accent);
+  font-weight:800;
+}
+
+.hero2-title{
+  font-size:clamp(36px,4.6vw,58px);
+  font-weight:900;
+  line-height:1.12;
+  letter-spacing:-.03em;
+  margin-bottom:18px;
+  color:var(--text);
+}
+
+.hero2-title-gradient{
+  background:linear-gradient(135deg,var(--accent) 0%,#c74f35 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+body.dark .hero2-title-gradient{
+  background:linear-gradient(135deg,#ff9d82 0%,var(--accent) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero2-lead{
+  font-size:17px;
+  line-height:1.65;
+  color:var(--muted);
+  max-width:680px;
+  margin:0 auto 26px;
+}
+
+.hero2-actions{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+
+.hero2-actions .btn{
+  height:46px;
+  padding:0 22px;
+  border-radius:13px;
+  font-size:14px;
+}
+
+.hero2-trust-strip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+  padding:9px 20px;
+  border-radius:100px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  box-shadow:0 4px 16px rgba(0,0,0,.03);
+  font-size:12.5px;
+  color:var(--muted);
+}
+
+.hero2-trust-item{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.trust-stars{
+  color:#e7a31b;
+  font-size:12px;
+  letter-spacing:1px;
+}
+
+.trust-sep{
+  color:var(--line);
+}
+
+.hero2-trust-item strong{
+  color:var(--text);
+}
+
+/* Home 2 Bento Showcase */
+.hero2-bento{
+  display:grid;
+  grid-template-columns:1fr 1.25fr 1fr;
+  gap:22px;
+  align-items:stretch;
+}
+
+.hero2-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:28px 24px;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+
+.hero2-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 22px 55px rgba(35,31,23,.12);
+}
+
+body.dark .hero2-card:hover{
+  box-shadow:0 22px 55px rgba(0,0,0,.35);
+}
+
+.hero2-card-tag{
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--accent);
+  margin-bottom:9px;
+}
+
+.hero2-card-title{
+  font-size:19px;
+  font-weight:850;
+  line-height:1.25;
+  color:var(--text);
+  margin-bottom:7px;
+}
+
+.hero2-card-desc{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.48;
+  margin-bottom:20px;
+}
+
+/* Card 1: Specs & Swatches */
+.hero2-specs-list{
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+  flex:1;
+  margin-bottom:20px;
+}
+
+.spec-row{
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+}
+
+.spec-icon{
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:var(--surface2);
+  color:var(--accent);
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  margin-top:2px;
+}
+
+.spec-info strong{
+  display:block;
+  font-size:13px;
+  font-weight:750;
+  color:var(--text);
+  line-height:1.25;
+}
+
+.spec-info span{
+  font-size:11.5px;
+  color:var(--muted);
+  line-height:1.35;
+}
+
+.hero2-finish-selector{
+  padding-top:16px;
+  border-top:1px solid var(--line);
+}
+
+.finish-selector-label{
+  display:block;
+  font-size:11.5px;
+  font-weight:750;
+  color:var(--text);
+  margin-bottom:9px;
+}
+
+.hero2-swatch-row{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+
+.hero2-swatch-chip{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:var(--surface2);
+  color:var(--text);
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+
+.hero2-swatch-chip:hover{
+  border-color:var(--accent);
+  background:var(--surface);
+}
+
+.hero2-swatch-chip.active{
+  border-color:var(--accent);
+  background:var(--surface);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent);
+}
+
+.hero2-swatch-chip .swatch-color{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  flex-shrink:0;
+  box-shadow:0 1px 3px rgba(0,0,0,.25);
+}
+
+/* Card 2: Photo */
+.hero2-card-photo{
+  padding:0;
+  border:none;
+  background:transparent;
+  border-radius:28px;
+  overflow:hidden;
+}
+
+.photo-wrapper{
+  position:relative;
+  width:100%;
+  height:100%;
+  min-height:460px;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.hero2-main-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 30%;
+  display:block;
+  transition:transform .5s ease;
+}
+
+.hero2-card-photo:hover .hero2-main-image{
+  transform:scale(1.03);
+}
+
+.photo-overlay-gradient{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.68) 100%);
+  pointer-events:none;
+}
+
+.photo-top-chip{
+  position:absolute;
+  top:16px;
+  left:16px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 13px;
+  border-radius:100px;
+  background:rgba(20,20,20,.65);
+  backdrop-filter:blur(12px);
+  color:#fff;
+  font-size:11.5px;
+  font-weight:700;
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.chip-pulse{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#4ade80;
+  box-shadow:0 0 0 3px rgba(74,222,128,.3);
+}
+
+.photo-bottom-card{
+  position:absolute;
+  bottom:16px;
+  left:16px;
+  right:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 16px;
+  border-radius:18px;
+  background:rgba(255,253,248,.92);
+  backdrop-filter:blur(14px);
+  color:#1c1d1a;
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.5);
+}
+
+body.dark .photo-bottom-card{
+  background:rgba(32,34,31,.92);
+  color:#f4f0e7;
+  border-color:rgba(255,255,255,.12);
+}
+
+.quote-avatar{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:var(--surface2);
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  flex-shrink:0;
+}
+
+.quote-content strong{
+  display:block;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.3;
+}
+
+.quote-content span{
+  font-size:11px;
+  color:var(--muted);
+  display:block;
+  margin-top:1px;
+}
+
+/* Card 3: Specimen */
+.hero2-specimen-stage{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:26px 10px;
+  background:radial-gradient(circle at center,rgba(223,112,83,.08) 0%,transparent 70%);
+}
+
+.hero2-ring-loop{
+  width:26px;
+  height:34px;
+  border:3.5px solid #d4a350;
+  border-radius:50%;
+  margin-bottom:-15px;
+  z-index:3;
+  position:relative;
+  box-shadow:0 4px 8px rgba(0,0,0,.22);
+  transition:border-color .3s ease;
+}
+
+.hero2-specimen-tag{
+  width:215px;
+  height:155px;
+  border-radius:36px 36px 48px 36px;
+  position:relative;
+  padding:20px 16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  box-shadow:0 18px 45px rgba(0,0,0,.22),inset 0 2px 4px rgba(255,255,255,.4),inset 0 -2px 4px rgba(0,0,0,.3);
+  transform:rotate(-3deg);
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  cursor:pointer;
+}
+
+.hero2-specimen-tag:hover{
+  transform:rotate(0deg) scale(1.04);
+}
+
+.specimen-hole{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  transition:all .3s ease;
+}
+
+.specimen-engraving{
+  position:relative;
+  z-index:2;
+  margin-top:10px;
+}
+
+.specimen-icon{
+  display:inline-flex;
+  margin-bottom:2px;
+  opacity:.65;
+}
+
+.specimen-petname{
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:.08em;
+  line-height:1.1;
+  margin-bottom:3px;
+}
+
+.specimen-phone{
+  font-size:12.5px;
+  font-weight:750;
+  letter-spacing:.04em;
+  margin-bottom:6px;
+}
+
+.specimen-badge span{
+  display:inline-block;
+  padding:2px 7px;
+  border-radius:4px;
+  font-size:8.5px;
+  font-weight:850;
+  letter-spacing:.08em;
+  background:rgba(0,0,0,.12);
+  border:1px solid rgba(0,0,0,.14);
+}
+
+.specimen-glare{
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.36) 48%,rgba(255,255,255,.05) 55%,transparent 70%);
+  pointer-events:none;
+}
+
+/* Specimen Finish Variations */
+.hero2-specimen-tag.finish-brass{
+  background:linear-gradient(135deg,#f8e2a8 0%,#d8a855 45%,#b88628 100%);
+}
+.hero2-specimen-tag.finish-brass .specimen-petname{
+  color:#3a250a;
+  text-shadow:0 1px 0 rgba(255,255,255,.4),0 -1px 0 rgba(0,0,0,.25);
+}
+.hero2-specimen-tag.finish-brass .specimen-phone{
+  color:#593b14;
+}
+.hero2-specimen-tag.finish-brass .specimen-hole{
+  background:#886326;
+  box-shadow:inset 0 0 0 4px #d8a855;
+}
+
+.hero2-specimen-tag.finish-black{
+  background:linear-gradient(135deg,#3c3e44 0%,#1e1f23 50%,#111214 100%);
+}
+.hero2-specimen-tag.finish-black .specimen-petname{
+  color:#ffffff;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
+}
+.hero2-specimen-tag.finish-black .specimen-phone{
+  color:rgba(255,255,255,.85);
+}
+.hero2-specimen-tag.finish-black .specimen-icon{
+  color:var(--accent);
+  opacity:1;
+}
+.hero2-specimen-tag.finish-black .specimen-badge span{
+  background:rgba(255,255,255,.14);
+  color:#ffffff;
+  border-color:rgba(255,255,255,.28);
+}
+.hero2-specimen-tag.finish-black .specimen-hole{
+  background:#0c0d0f;
+  box-shadow:inset 0 0 0 4px #2b2c31;
+}
+
+.hero2-specimen-tag.finish-rose{
+  background:linear-gradient(135deg,#fcdcd5 0%,#e7a092 50%,#bf6c5d 100%);
+}
+.hero2-specimen-tag.finish-rose .specimen-petname{
+  color:#4a1c14;
+  text-shadow:0 1px 0 rgba(255,255,255,.45),0 -1px 0 rgba(0,0,0,.25);
+}
+.hero2-specimen-tag.finish-rose .specimen-phone{
+  color:#692a20;
+}
+.hero2-specimen-tag.finish-rose .specimen-hole{
+  background:#964839;
+  box-shadow:inset 0 0 0 4px #e7a092;
+}
+
+.hero2-specimen-tag.finish-silver{
+  background:linear-gradient(135deg,#f8fafc 0%,#d8dde3 50%,#a8b0bc 100%);
+}
+.hero2-specimen-tag.finish-silver .specimen-petname{
+  color:#202328;
+  text-shadow:0 1px 0 rgba(255,255,255,.6),0 -1px 0 rgba(0,0,0,.25);
+}
+.hero2-specimen-tag.finish-silver .specimen-phone{
+  color:#3a3f48;
+}
+.hero2-specimen-tag.finish-silver .specimen-hole{
+  background:#767e8a;
+  box-shadow:inset 0 0 0 4px #d8dde3;
+}
+
+.hero2-specimen-footer{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.specimen-meta{
+  font-size:11.5px;
+  color:var(--muted);
+}
+
+.specimen-meta strong{
+  color:var(--text);
+  display:block;
+}
+
+.hero2-specimen-cta{
+  height:36px;
+  padding:0 14px;
+  font-size:12px;
+  border-radius:10px;
+}
+
+/* Responsive Home 2 Hero */
+@media(max-width:1050px){
+  .hero2-bento{
+    grid-template-columns:1fr 1fr;
+  }
+  .hero2-card-photo{
+    grid-column:1 / -1;
+    order:-1;
+  }
+  .photo-wrapper{
+    min-height:360px;
+  }
+}
+
+@media(max-width:720px){
+  .hero.hero2{
+    padding:45px 0 40px;
+  }
+  .hero2-masthead{
+    margin-bottom:30px;
+  }
+  .hero2-title{
+    font-size:32px;
+  }
+  .hero2-lead{
+    font-size:15px;
+    margin-bottom:20px;
+  }
+  .hero2-trust-strip{
+    font-size:11px;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:14px;
+  }
+  .trust-sep{
+    display:none;
+  }
+  .hero2-bento{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .photo-wrapper{
+    min-height:300px;
+  }
+}
+
+/* RTL Support */
+body.rtl .photo-top-chip{
+  left:auto;
+  right:16px;
+}
+
+body.rtl .hero2-actions svg,
+body.rtl .hero2-specimen-cta svg{
+  transform:rotate(180deg);
+}
+
+/* =========================================================
+                     ABOUT US STYLES
+========================================================= */
+
+.materials-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.material-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:26px 22px;
+  box-shadow:0 8px 28px rgba(30,28,22,.04);
+  display:flex;
+  flex-direction:column;
+  transition:all .3s ease;
+}
+
+.material-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--accent);
+  box-shadow:var(--shadow);
+}
+
+.material-swatch-box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.material-swatch-circle{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  box-shadow:0 3px 10px rgba(0,0,0,.2),inset 0 1px 2px rgba(255,255,255,.4);
+  border:2px solid var(--surface);
+}
+
+.material-badge{
+  font-size:10.5px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  padding:4px 10px;
+  border-radius:100px;
+  background:var(--surface2);
+  color:var(--accent);
+}
+
+.material-card h3{
+  font-size:18px;
+  font-weight:850;
+  margin-bottom:8px;
+  color:var(--text);
+}
+
+.material-card p{
+  font-size:13px;
+  line-height:1.5;
+  color:var(--muted);
+  margin-bottom:18px;
+  flex:1;
+}
+
+.material-specs-list{
+  list-style:none;
+  display:grid;
+  gap:8px;
+  border-top:1px solid var(--line);
+  padding-top:14px;
+}
+
+.material-specs-list li{
+  font-size:12px;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:600;
+}
+
+.material-specs-list li span{
+  color:var(--accent);
+  font-weight:900;
+}
+
+/* Process Grid */
+.process-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.process-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:28px 22px;
+  position:relative;
+  box-shadow:0 8px 28px rgba(30,28,22,.04);
+  transition:all .3s ease;
+}
+
+.process-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+  box-shadow:var(--shadow);
+}
+
+.process-step-num{
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:-.03em;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:14px;
+  display:block;
+  opacity:.9;
+}
+
+.process-card h3{
+  font-size:17px;
+  font-weight:850;
+  margin-bottom:8px;
+  color:var(--text);
+}
+
+.process-card p{
+  font-size:13px;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+/* Customer Promise Grid */
+.promise-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.promise-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:26px 24px;
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  box-shadow:0 8px 28px rgba(30,28,22,.04);
+  transition:all .3s ease;
+}
+
+.promise-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--accent);
+  box-shadow:var(--shadow);
+}
+
+.promise-icon{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  background:var(--surface2);
+  color:var(--accent);
+  display:grid;
+  place-items:center;
+  font-size:20px;
+  flex-shrink:0;
+  margin-top:2px;
+}
+
+.promise-content h3{
+  font-size:17px;
+  font-weight:850;
+  margin-bottom:6px;
+  color:var(--text);
+}
+
+.promise-content p{
+  font-size:13.5px;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+/* Team Grid */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.team-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 8px 28px rgba(30,28,22,.04);
+  display:flex;
+  flex-direction:column;
+  transition:all .3s ease;
+}
+
+.team-card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.team-img{
+  height:240px;
+  width:100%;
+  object-fit:cover;
+  object-position:center 20%;
+  display:block;
+}
+
+.team-body{
+  padding:22px 20px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+.team-body h3{
+  font-size:17px;
+  font-weight:850;
+  color:var(--text);
+  margin-bottom:2px;
+}
+
+.team-role{
+  font-size:11.5px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--accent);
+  margin-bottom:10px;
+  display:block;
+}
+
+.team-pet{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 10px;
+  border-radius:100px;
+  background:var(--surface2);
+  font-size:11.5px;
+  font-weight:750;
+  color:var(--text);
+  margin-bottom:12px;
+  align-self:flex-start;
+}
+
+.team-bio{
+  font-size:13px;
+  line-height:1.48;
+  color:var(--muted);
+}
+
+/* Responsive queries for About Us components */
+@media(max-width:1050px){
+  .materials-grid,
+  .process-grid,
+  .team-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:620px){
+  .materials-grid,
+  .process-grid,
+  .team-grid,
+  .promise-grid{
+    grid-template-columns:1fr;
+  }
+  .team-img{
+    height:220px;
+  }
+}
+
 
 .split{
   display:grid;
@@ -462,28 +1461,90 @@ body.rtl .floating-note{
 .stat-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:16px;
+  gap:18px;
 }
 
 .stat{
   text-align:center;
-  padding:28px 18px;
+  padding:30px 20px;
   background:var(--surface);
   border:1px solid var(--line);
-  border-radius:20px;
+  border-radius:22px;
+  box-shadow:0 6px 24px rgba(30,28,22,.04);
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+
+.stat:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
 }
 
 .stat strong{
   display:block;
-  font-size:34px;
+  font-size:38px;
   color:var(--accent);
   line-height:1;
-  margin-bottom:8px;
+  margin-bottom:10px;
+  font-weight:900;
 }
 
 .stat span{
+  color:var(--text);
+  font-size:15px;
+  font-weight:750;
+  line-height:1.35;
+}
+
+/* PawTag Standard Enhanced Readability */
+.pawtag-standard-section .section-head h2{
+  font-size:clamp(32px,3.8vw,46px);
+  margin-bottom:14px;
+}
+
+.pawtag-standard-subtitle{
+  font-size:18px!important;
+  line-height:1.6;
+  max-width:680px;
+  margin:0 auto;
   color:var(--muted);
-  font-size:13px;
+}
+
+.pawtag-standard-grid{
+  gap:20px;
+}
+
+.pawtag-standard-grid .stat{
+  padding:34px 22px;
+  border-radius:24px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.pawtag-standard-grid .stat strong{
+  font-size:46px;
+  font-weight:900;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:14px;
+  letter-spacing:-.02em;
+}
+
+.pawtag-standard-grid .stat span{
+  font-size:19px;
+  font-weight:850;
+  color:var(--text);
+  display:block;
+  line-height:1.3;
+  margin-bottom:8px;
+}
+
+.pawtag-standard-grid .stat .stat-desc{
+  font-size:14px;
+  line-height:1.55;
+  color:var(--muted);
+  margin-top:2px;
 }
 
 .feature-grid{
@@ -580,39 +1641,121 @@ body.rtl .floating-note{
 .products-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:24px;
+  align-items:stretch;
 }
 
 .product-card{
   background:var(--surface);
   border:1px solid var(--line);
-  border-radius:25px;
+  border-radius:24px;
   overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  box-shadow:0 8px 28px rgba(30,28,22,.04);
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+}
+
+.product-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--accent);
+  box-shadow:var(--shadow);
+}
+
+.product-card-img-wrap{
+  width:100%;
+  height:250px;
+  position:relative;
+  overflow:hidden;
+  background:var(--surface2);
 }
 
 .product-card img{
-  height:270px;
+  width:100%;
+  height:100%;
   object-fit:cover;
+  display:block;
+  transition:transform .4s ease;
 }
 
-.product-info{
-  padding:21px;
+.product-card:hover img{
+  transform:scale(1.04);
 }
 
-.product-info h3{
-  margin-bottom:7px;
+.product-card-badge{
+  position:absolute;
+  top:14px;
+  left:14px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  border-radius:100px;
+  background:rgba(255,253,248,.92);
+  color:var(--accent);
+  backdrop-filter:blur(8px);
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
-.price{
-  margin-top:13px;
-  font-size:18px;
-  font-weight:900;
+body.dark .product-card-badge{
+  background:rgba(32,34,31,.9);
   color:var(--accent);
 }
 
-.product-info .btn{
-  width:100%;
-  margin-top:15px;
+body.rtl .product-card-badge{
+  left:auto;
+  right:14px;
+}
+
+.product-info{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  box-sizing:border-box;
+}
+
+.product-info h3{
+  font-size:19px;
+  font-weight:850;
+  color:var(--text);
+  margin-bottom:8px;
+  line-height:1.25;
+}
+
+.product-info p{
+  font-size:13.5px;
+  line-height:1.55;
+  color:var(--muted);
+  margin-bottom:20px;
+  flex:1;
+}
+
+.product-card-footer{
+  margin-top:auto;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.product-card-footer .price{
+  margin:0;
+  font-size:17px;
+  font-weight:900;
+  color:var(--accent);
+  line-height:1;
+}
+
+.product-card-footer .btn{
+  height:36px;
+  padding:0 16px;
+  font-size:12.5px;
+  border-radius:10px;
 }
 
 .tag-showcase{
@@ -1287,6 +2430,7 @@ body.rtl #backToTop{right:auto;left:20px;}
       </div>
       <a href="#home1" class="page-link active-link" data-page="home1">Home 01</a>
       <a href="#home2" class="page-link" data-page="home2">Home 02</a>
+      <a href="#about" class="page-link" data-page="about">About Us</a>
       <a href="#products" class="page-link" data-page="products">Products</a>
       <a href="#designer" class="page-link" data-page="designer">Design Your Tag</a>
       <a href="#bulk" class="page-link" data-page="bulk">Bulk Orders</a>
@@ -1294,13 +2438,12 @@ body.rtl #backToTop{right:auto;left:20px;}
     </div>
 
     <div class="nav-actions">
-      <a href="#contact" class="btn btn-primary nav-contact page-link" data-page="contact">
-        Contact Us
-      </a>
-
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
       <button class="icon-btn" id="rtlBtn" aria-label="Toggle RTL">RTL</button>
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+      <a href="#contact" class="btn btn-primary nav-contact page-link" data-page="contact">
+        Contact Us
+      </a>
     </div>
 
   </div>
@@ -1500,35 +2643,42 @@ body.rtl #backToTop{right:auto;left:20px;}
   </section>
 
 
-  <!-- 5 -->
-  <section class="section">
+  <!-- 5: The PAWTAG Standard -->
+  <section class="section pawtag-standard-section">
     <div class="container">
 
       <div class="section-head reveal">
         <span class="eyebrow">The PAWTAG standard</span>
         <h2>Designed around the moments that matter.</h2>
+        <p class="pawtag-standard-subtitle">
+          Built around four non-negotiable principles for everyday comfort, enduring legibility, and effortless safety.
+        </p>
       </div>
 
-      <div class="stat-grid">
+      <div class="stat-grid pawtag-standard-grid">
 
         <div class="stat reveal">
           <strong>01</strong>
-          <span>Simple identification</span>
+          <span>Simple Identification</span>
+          <p class="stat-desc">Crisp, high-contrast laser etching readable in any emergency situation.</p>
         </div>
 
         <div class="stat reveal">
           <strong>02</strong>
-          <span>Comfort-first design</span>
+          <span>Comfort-First Design</span>
+          <p class="stat-desc">Featherweight alloy profile paired with whisper-quiet, jingle-free fit.</p>
         </div>
 
         <div class="stat reveal">
           <strong>03</strong>
-          <span>Personal styling</span>
+          <span>Personal Styling</span>
+          <p class="stat-desc">Curated modern silhouettes, jewelry brass, and permanent custom details.</p>
         </div>
 
         <div class="stat reveal">
           <strong>04</strong>
-          <span>Adventure ready</span>
+          <span>Adventure Ready</span>
+          <p class="stat-desc">100% corrosion-proof hardware built for mud, rain, surf, and trails.</p>
         </div>
 
       </div>
@@ -1563,38 +2713,189 @@ body.rtl #backToTop{right:auto;left:20px;}
 ========================================================= -->
 <main id="home2" class="page">
 
-  <!-- 1 -->
-  <section class="hero">
-    <div class="container hero-grid">
+  <!-- 1: Redesigned Signature Hardware & Bento Showcase Hero -->
+  <section class="hero hero2">
+    <div class="container">
 
-      <div class="hero-visual reveal">
-        <img
-          class="hero-image"
-          src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=2200&q=90"
-          alt="Golden retriever outdoors">
+      <!-- Hero Masthead (Centered Editorial Architecture) -->
+      <div class="hero2-masthead reveal">
+        <div class="hero2-badge">
+          <span class="hero2-badge-dot"></span>
+          <span>The Signature Hardware Edition</span>
+          <span class="hero2-badge-divider">•</span>
+          <span class="hero2-badge-highlight">Deep Laser Engraved</span>
+        </div>
 
-        <div class="floating-note">
-          <strong>Personalized for them</strong>
-          <span>Name • Contact • Style</span>
+        <h1 class="hero2-title">
+          Beautiful protection for <span class="hero2-title-gradient">curious companions.</span>
+        </h1>
+
+        <p class="hero2-lead">
+          PAWTAG pairs aerospace-grade alloys with whisper-quiet collar hardware and permanent fiber-laser engraving — crafted to stay readable through every puddle, trail, and couch nap.
+        </p>
+
+        <div class="hero2-actions">
+          <a href="#designer" class="btn btn-primary page-link hero2-btn-primary" data-page="designer">
+            <span>Design Your Tag</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#products" class="btn btn-outline page-link hero2-btn-outline" data-page="products">
+            <span>Browse All Finishes</span>
+          </a>
+          <a href="#contact" class="btn btn-outline page-link hero2-btn-contact" data-page="contact">
+            <span>Talk to Us</span>
+          </a>
+        </div>
+
+        <!-- Trust & Quality Ticker Strip -->
+        <div class="hero2-trust-strip">
+          <div class="hero2-trust-item">
+            <span class="trust-stars">★★★★★</span>
+            <span class="trust-text"><strong>4.9 / 5</strong> (14,200+ Pets Safe)</span>
+          </div>
+          <span class="trust-sep">•</span>
+          <div class="hero2-trust-item">
+            <span class="trust-icon">🛡️</span>
+            <span class="trust-text"><strong>Lifetime</strong> Legibility Guarantee</span>
+          </div>
+          <span class="trust-sep">•</span>
+          <div class="hero2-trust-item">
+            <span class="trust-icon">⚡</span>
+            <span class="trust-text"><strong>24-Hour</strong> Custom Engraving</span>
+          </div>
+          <span class="trust-sep">•</span>
+          <div class="hero2-trust-item">
+            <span class="trust-icon">🔇</span>
+            <span class="trust-text"><strong>Zero-Jingle</strong> Silent Collar Ring</span>
+          </div>
         </div>
       </div>
 
-      <div class="hero-copy reveal">
-        <span class="eyebrow">A better everyday essential</span>
-        <h1>Beautiful protection for curious companions.</h1>
-        <p>
-          PAWTAG brings thoughtful personalization and modern design together
-          in a tag made to live comfortably on your pet's collar.
-        </p>
+      <!-- Bento Visual Matrix -->
+      <div class="hero2-bento reveal">
 
-        <div class="hero-actions">
-          <a href="#designer" class="btn btn-primary page-link" data-page="designer">
-            Create a Tag
-          </a>
-          <a href="#contact" class="btn btn-outline page-link" data-page="contact">
-            Talk to Us
-          </a>
+        <!-- Bento Card 1: Craftsmanship & Finish Studio -->
+        <div class="hero2-card hero2-card-craft">
+          <div class="hero2-card-tag">Artisan Engineering</div>
+          <h3 class="hero2-card-title">Crafted for a Lifetime of Movement</h3>
+          <p class="hero2-card-desc">No stamped tin. No ink that wears off. Built to survive salt waves, brambles, and dog-park scuffles.</p>
+
+          <div class="hero2-specs-list">
+            <div class="spec-row">
+              <div class="spec-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="spec-info">
+                <strong>Fiber Laser Deep-Cut</strong>
+                <span>Etched 0.35mm into solid metal core — guaranteed never to fade</span>
+              </div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div class="spec-info">
+                <strong>Solid 316L Stainless & Brass</strong>
+                <span>Corrosion-free, hypoallergenic, and scratch-resistant</span>
+              </div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              </div>
+              <div class="spec-info">
+                <strong>Zero-Jingle Quiet Collar Wear</strong>
+                <span>Snug silicone bumper keeps night-time footsteps silent</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero2-finish-selector">
+            <span class="finish-selector-label">Choose Finish to Preview:</span>
+            <div class="hero2-swatch-row">
+              <button type="button" class="hero2-swatch-chip active" data-finish="brass" title="Solid Polished Brass">
+                <span class="swatch-color" style="background: linear-gradient(135deg, #f7dfa5, #b58129);"></span>
+                <span>Brass</span>
+              </button>
+              <button type="button" class="hero2-swatch-chip" data-finish="black" title="Matte Onyx Black">
+                <span class="swatch-color" style="background: linear-gradient(135deg, #3a3b40, #141517);"></span>
+                <span>Matte Onyx</span>
+              </button>
+              <button type="button" class="hero2-swatch-chip" data-finish="rose" title="Rose Gold Alloy">
+                <span class="swatch-color" style="background: linear-gradient(135deg, #fcdcd5, #bf6c5d);"></span>
+                <span>Rose Gold</span>
+              </button>
+              <button type="button" class="hero2-swatch-chip" data-finish="silver" title="Brushed 316L Silver">
+                <span class="swatch-color" style="background: linear-gradient(135deg, #f8fafc, #aab2bc);"></span>
+                <span>Silver Steel</span>
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- Bento Card 2: Hero Photography Focal Card -->
+        <div class="hero2-card hero2-card-photo">
+          <div class="photo-wrapper">
+            <img
+              class="hero2-main-image"
+              data-fallback="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=2200&q=90"
+              src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=2200&q=90"
+              alt="Golden retriever outdoors wearing PAWTAG custom engraved tag">
+            <div class="photo-overlay-gradient"></div>
+            
+            <div class="photo-top-chip">
+              <span class="chip-pulse"></span>
+              <span>Tested on 10,000+ Adventure Miles</span>
+            </div>
+
+            <div class="photo-bottom-card">
+              <div class="quote-avatar">🐕</div>
+              <div class="quote-content">
+                <strong>“The cleanest, quietest tag we've ever owned.”</strong>
+                <span>Barnaby & Sarah • Colorado Rockies</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 3: Interactive Live Engraved Specimen Card -->
+        <div class="hero2-card hero2-card-specimen">
+          <div class="hero2-card-tag">Live Simulator</div>
+          <h3 class="hero2-card-title">Artisan Tag Preview</h3>
+          <p class="hero2-card-desc">Interactive metallic simulator showing true-to-life deep fiber-laser engraving.</p>
+
+          <div class="hero2-specimen-stage">
+            <div class="hero2-ring-loop" id="hero2RingLoop"></div>
+            <div class="hero2-specimen-tag finish-brass" id="hero2TagSpecimen" title="Click finish chips on the left to switch alloy">
+              <div class="specimen-hole" id="hero2SpecimenHole"></div>
+              <div class="specimen-engraving">
+                <div class="specimen-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                </div>
+                <div class="specimen-petname" id="hero2SpecimenName">BARNABY</div>
+                <div class="specimen-phone" id="hero2SpecimenPhone">(555) 382-9901</div>
+                <div class="specimen-badge">
+                  <span>MICROCHIPPED</span>
+                </div>
+              </div>
+              <div class="specimen-glare"></div>
+            </div>
+          </div>
+
+          <div class="hero2-specimen-footer">
+            <div class="specimen-meta">
+              <span class="meta-label">Selected Finish:</span>
+              <strong class="meta-val" id="hero2SelectedFinishName">Solid Polished Brass</strong>
+            </div>
+            <a href="#designer" class="btn btn-primary page-link hero2-specimen-cta" data-page="designer">
+              <span>Customize Yours</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -1781,6 +3082,443 @@ body.rtl #backToTop{right:auto;left:20px;}
 
 
 <!-- =========================================================
+                         ABOUT US
+========================================================= -->
+<main id="about" class="page">
+
+  <!-- 1: Consistent Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Our Heritage & Mission</span>
+        <h1>Built with love, engineered for a lifetime.</h1>
+        <p>
+          From quiet morning walks to untamed wilderness trails, PAWTAG was created to keep your most loyal companion safe, silent, comfortable, and always connected to home.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+            <span>Design a Custom Tag</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#aboutStory" class="btn btn-outline" onclick="document.getElementById('aboutStory').scrollIntoView({behavior:'smooth'})">
+            Read Our Story
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <img
+          class="hero-image"
+          data-fallback="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=2200&q=90"
+          src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=2200&q=90"
+          alt="Pet parent embracing happy dog outdoors">
+
+        <div class="floating-note">
+          <strong>Handcrafted with devotion</strong>
+          <span>14,000+ happy pets protected worldwide</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 2: Our Story -->
+  <section class="section" id="aboutStory">
+    <div class="container split reveal">
+
+      <div class="split-image">
+        <img
+          src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2200&q=90"
+          alt="Artisan metal engraving studio and craft tools">
+      </div>
+
+      <div class="split-copy">
+        <span class="eyebrow">Our Story</span>
+        <h2>Born from a jingling collar and a faded phone number.</h2>
+        <p>
+          In 2019, our rescue hound Bruno sprinted after a deer during a rainy mountain hike. When we found him an hour later, his stamped aluminum pet store tag was badly scratched, the phone number was illegible, and the thin split ring was nearly bent open.
+        </p>
+        <p>
+          That frightening afternoon sparked a realization: pet tags are the single most critical lifelines our companions wear, yet most are made from cheap stamped tin that fades, jingles endlessly, and fails when you need it most.
+        </p>
+        <p>
+          We founded PAWTAG to build the hardware we demanded for our own pets: aerospace-grade alloys, silent collar fit, and optical fiber-laser engraving that survives mud, river swims, and a lifetime of adventures.
+        </p>
+
+        <ul class="check-list">
+          <li><span class="check">✓</span>100% founded and run by lifelong pet parents and craftsmen</li>
+          <li><span class="check">✓</span>Every single tag is individually laser-engraved and hand-inspected</li>
+          <li><span class="check">✓</span>Zero hollow stampings, toxic alloys, or painted ink that rubs off</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 3: Why We Create Custom Pet Tags -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Why We Create</span>
+        <h2>More than metal. A voice when they can't speak.</h2>
+        <p>
+          A lost companion cannot tell someone their street address or medication needs. Every detail we design serves a life-saving purpose.
+        </p>
+      </div>
+
+      <div class="card-grid">
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog safely reunited with owner">
+          <div class="card-body">
+            <h3>Instant Reunion Lifeline</h3>
+            <p>
+              When a gate swings open or fireworks cause panic, ultra-crisp readable phone numbers and medical indicators mean a swift neighborhood reunion instead of an agonizing shelter stay.
+            </p>
+            <span class="card-link">High-Contrast Readability</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog sleeping peacefully in silence">
+          <div class="card-body">
+            <h3>Quiet Sleep & Sensory Peace</h3>
+            <p>
+              Constant metallic clinking against food bowls and collar rings disrupts sleep and stresses sensitive animal ears. Our silent bumper hardware keeps everyday life whisper-quiet.
+            </p>
+            <span class="card-link">Sound-Dampening Fit</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <img
+            class="card-image"
+            src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1800&q=90"
+            alt="Dog wearing elegant collar tag">
+          <div class="card-body">
+            <h3>Dignity & Personal Style</h3>
+            <p>
+              Your companion is family. They deserve an accessory that looks, feels, and endures like fine human jewelry, handcrafted to celebrate their unique name, bond, and personality.
+            </p>
+            <span class="card-link">Jewelry-Grade Finish</span>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 4: Our Craftsmanship, Quality & Materials -->
+  <section class="section" id="materialsSection">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Quality & Materials</span>
+        <h2>Jewelry-grade metals. Aerospace durability.</h2>
+        <p>
+          We refuse to use cheap zinc castings or nickel coatings that tarnish, pit, or irritate pet skin. We craft exclusively with four enduring materials.
+        </p>
+      </div>
+
+      <div class="materials-grid">
+
+        <div class="material-card reveal">
+          <div class="material-swatch-box">
+            <div class="material-swatch-circle" style="background:linear-gradient(135deg,#f8fafc,#a8b0bc);"></div>
+            <span class="material-badge">Indestructible</span>
+          </div>
+          <h3>316L Marine Stainless</h3>
+          <p>
+            Surgical and marine-grade steel impervious to saltwater, mud, and heavy impact. Completely hypoallergenic and rustproof forever.
+          </p>
+          <ul class="material-specs-list">
+            <li><span>✦</span> 100% Rust & Saltwater Proof</li>
+            <li><span>✦</span> Hypoallergenic Skin-Safe</li>
+            <li><span>✦</span> 45 lbs Pull-Tested Ring</li>
+          </ul>
+        </div>
+
+        <div class="material-card reveal">
+          <div class="material-swatch-box">
+            <div class="material-swatch-circle" style="background:linear-gradient(135deg,#f8e2a8,#b88628);"></div>
+            <span class="material-badge">Timeless Warmth</span>
+          </div>
+          <h3>Solid Jewelry Brass</h3>
+          <p>
+            Substantial, solid unplated brass that develops a rich, authentic patina over years of adventures or buffs back to a radiant golden mirror shine.
+          </p>
+          <ul class="material-specs-list">
+            <li><span>✦</span> Solid Metal Core (Not Plated)</li>
+            <li><span>✦</span> Naturally Antibacterial</li>
+            <li><span>✦</span> Hand-Polished Mirror Bevel</li>
+          </ul>
+        </div>
+
+        <div class="material-card reveal">
+          <div class="material-swatch-box">
+            <div class="material-swatch-circle" style="background:linear-gradient(135deg,#3c3e44,#111214);"></div>
+            <span class="material-badge">Tactical Satin</span>
+          </div>
+          <h3>PVD Matte Onyx Black</h3>
+          <p>
+            Physical Vapor Deposition (PVD) titanium carbide coating bonded at the atomic level for supreme scratch, chip, and weather resistance.
+          </p>
+          <ul class="material-specs-list">
+            <li><span>✦</span> Molecular PVD Bond</li>
+            <li><span>✦</span> Anti-Glare Matte Surface</li>
+            <li><span>✦</span> Brilliant White Laser Cut</li>
+          </ul>
+        </div>
+
+        <div class="material-card reveal">
+          <div class="material-swatch-box">
+            <div class="material-swatch-circle" style="background:linear-gradient(135deg,#fcdcd5,#bf6c5d);"></div>
+            <span class="material-badge">Signature Luxe</span>
+          </div>
+          <h3>Rose Gold Alloy</h3>
+          <p>
+            A warm copper-infused stainless alloy delivering a radiant blush sheen without the fragile flaking of standard costume jewelry plating.
+          </p>
+          <ul class="material-specs-list">
+            <li><span>✦</span> Permanent Alloy Color</li>
+            <li><span>✦</span> Tarnish-Free Composition</li>
+            <li><span>✦</span> Silky Smooth Edges</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 5: Our Personalization Process -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Our Personalization Process</span>
+        <h2>How your custom tag comes to life.</h2>
+        <p>
+          Every PAWTAG passes through four meticulous artisan stages before being carefully packaged and dispatched from our studio.
+        </p>
+      </div>
+
+      <div class="process-grid">
+
+        <div class="process-card reveal">
+          <span class="process-step-num">01</span>
+          <h3>Silhouette & Size Selection</h3>
+          <p>
+            Choose from classic round, modern hexagon, arched silhouette, or playful bone shapes, scaled proportionately from petite cats up to giant breeds.
+          </p>
+        </div>
+
+        <div class="process-card reveal">
+          <span class="process-step-num">02</span>
+          <h3>Typographic Optimization</h3>
+          <p>
+            Our studio calibrates kerning and visual hierarchy for your companion's name, primary and backup emergency numbers, and microchip or medical alerts.
+          </p>
+        </div>
+
+        <div class="process-card reveal">
+          <span class="process-step-num">03</span>
+          <h3>Fiber-Laser Deep Vaporization</h3>
+          <p>
+            Industrial optical lasers vaporize 0.35mm of metal depth, producing sharp, dark, permanent characters that can never be rubbed or scratched away.
+          </p>
+        </div>
+
+        <div class="process-card reveal">
+          <span class="process-step-num">04</span>
+          <h3>Hand-Buffing & Stress Testing</h3>
+          <p>
+            Each piece is deburred by hand to eliminate fur-snagging burs, fitted with our reinforced split ring, and pull-tested before final velvet-pouch packaging.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 6: Customer Promise -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Customer Promise</span>
+        <h2>Our Ironclad Four-Point Guarantee.</h2>
+        <p>
+          We craft hardware we trust with our own four-legged family members. If you or your pet are ever unsatisfied, we make it right without hesitation.
+        </p>
+      </div>
+
+      <div class="promise-grid">
+
+        <div class="promise-card reveal">
+          <div class="promise-icon">🛡️</div>
+          <div class="promise-content">
+            <h3>Lifetime Legibility Guarantee</h3>
+            <p>
+              If your PAWTAG engraving ever fades, wears flat, or becomes illegible at any point during your pet's life, we will re-engrave and replace it free of charge.
+            </p>
+          </div>
+        </div>
+
+        <div class="promise-card reveal">
+          <div class="promise-icon">🌊</div>
+          <div class="promise-content">
+            <h3>100% Rust & Corrosion Proof</h3>
+            <p>
+              Rain, lake water, beach surf, or mud puddles will never cause rust, surface pitting, or staining. Built for active dogs who love water.
+            </p>
+          </div>
+        </div>
+
+        <div class="promise-card reveal">
+          <div class="promise-icon">🐾</div>
+          <div class="promise-content">
+            <h3>Snag-Free Fur Safety</h3>
+            <p>
+              Chamfered edges and hand-polished contours prevent fur matting, hair tangling, or collar friction, ensuring maximum comfort 24 hours a day.
+            </p>
+          </div>
+        </div>
+
+        <div class="promise-card reveal">
+          <div class="promise-icon">⚡</div>
+          <div class="promise-content">
+            <h3>24-Hour Studio Dispatch</h3>
+            <p>
+              We know waiting for a pet tag means anxiety. Your custom personalized tag is deeply laser-engraved and dispatched within 1 business day.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 7: Meet the Team -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Meet The Team</span>
+        <h2>The humans behind the hardware.</h2>
+        <p>
+          Dog lovers, cat cuddlers, and precision metal artisans working daily in our studio to protect your furry family.
+        </p>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="team-card reveal">
+          <img
+            class="team-img"
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=90"
+            alt="Maya Raghavan - Co-Founder & Master Engraver">
+          <div class="team-body">
+            <h3>Maya Raghavan</h3>
+            <span class="team-role">Founder & Master Engraver</span>
+            <span class="team-pet">🐕 Mom to Bruno (Hound mix)</span>
+            <p class="team-bio">
+              Jewelry artisan with 12+ years in metallurgy, dedicated to making identification tags that endure thousands of mountain trail miles.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <img
+            class="team-img"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=90"
+            alt="Daniel Chen - Hardware Designer">
+          <div class="team-body">
+            <h3>Daniel Chen</h3>
+            <span class="team-role">Hardware Designer</span>
+            <span class="team-pet">🦮 Dad to Luna (Golden Retriever)</span>
+            <p class="team-bio">
+              Former aerospace CAD engineer who engineered our reinforced snag-free split rings and noise-dampening collar buffer system.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <img
+            class="team-img"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=90"
+            alt="Ananya Patel - Materials & Quality Lead">
+          <div class="team-body">
+            <h3>Ananya Patel</h3>
+            <span class="team-role">Materials & Quality Lead</span>
+            <span class="team-pet">🐈 Mom to Oliver & Cleo</span>
+            <p class="team-bio">
+              Runs rigorous saltwater corrosion and pull-strength tests to guarantee zero skin irritation and decades of structural integrity.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <img
+            class="team-img"
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=90"
+            alt="Sam Reynolds - Customer Care Specialist">
+          <div class="team-body">
+            <h3>Sam Reynolds</h3>
+            <span class="team-role">Customer Care & Reunions</span>
+            <span class="team-pet">🐕 Dad to Milo (Beagle)</span>
+            <p class="team-bio">
+              Reviews custom engraving requests for optimal phone number legibility and ensures lightning-fast emergency replacements.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 8: Bottom Call To Action -->
+  <section class="section">
+    <div class="container">
+
+      <div class="cta reveal">
+        <div>
+          <h2>Give your companion the protection they deserve.</h2>
+          <p>Choose an enduring silhouette, pick your luxury finish, and personalize their story in minutes.</p>
+        </div>
+
+        <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+          Design Your Tag Now
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- =========================================================
                          PRODUCTS
 ========================================================= -->
 <main id="products" class="page">
@@ -1826,73 +3564,121 @@ body.rtl #backToTop{right:auto;left:20px;}
         </p>
       </div>
 
-      <div class="products-grid">
+      <div class="products-grid featured-styles-grid">
 
         <article class="product-card reveal">
-          <img
-            src="https://images.unsplash.com/photo-1612536057832-2ff7ead58194?auto=format&fit=crop&w=1800&q=90"
-            alt="Dog with collar">
+          <div class="product-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1612536057832-2ff7ead58194?auto=format&fit=crop&w=1800&q=90"
+              alt="Classic Round pet tag on dog with collar">
+            <span class="product-card-badge">Bestseller</span>
+          </div>
           <div class="product-info">
             <h3>Classic Round</h3>
-            <p>A timeless profile for simple everyday identification.</p>
-            <div class="price">From ₹499</div>
+            <p>A timeless, versatile profile designed for effortless everyday identification.</p>
+            <div class="product-card-footer">
+              <div class="price">From ₹499</div>
+              <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+                Customize
+              </a>
+            </div>
           </div>
         </article>
 
         <article class="product-card reveal">
-          <img
-            src="https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=1800&q=90"
-            alt="Cat with collar">
+          <div class="product-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=1800&q=90"
+              alt="Soft Edge tag on smaller companion">
+            <span class="product-card-badge">Lightweight</span>
+          </div>
           <div class="product-info">
             <h3>Soft Edge</h3>
-            <p>A refined silhouette designed for smaller companions.</p>
-            <div class="price">From ₹549</div>
+            <p>A gentle, compact silhouette proportioned specifically for cats and small dogs.</p>
+            <div class="product-card-footer">
+              <div class="price">From ₹549</div>
+              <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+                Customize
+              </a>
+            </div>
           </div>
         </article>
 
         <article class="product-card reveal">
-          <img
-            src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1800&q=90"
-            alt="Dog outdoors">
+          <div class="product-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1800&q=90"
+              alt="Minimal Arch pet tag on outdoor collar">
+            <span class="product-card-badge">Modern</span>
+          </div>
           <div class="product-info">
             <h3>Minimal Arch</h3>
-            <p>A clean, understated shape for everyday collars.</p>
-            <div class="price">From ₹579</div>
+            <p>An architectural arched silhouette delivering clean modern lines on any collar.</p>
+            <div class="product-card-footer">
+              <div class="price">From ₹579</div>
+              <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+                Customize
+              </a>
+            </div>
           </div>
         </article>
 
         <article class="product-card reveal">
-          <img
-            class="adventure-image"
-            data-fallback="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=2200&q=90"
-            src="https://images.unsplash.com/photo-1593134257782-e895f913cc9c?auto=format&fit=crop&w=1800&q=90"
-            alt="Dog with colorful collar">
+          <div class="product-card-img-wrap">
+            <img
+              class="adventure-image"
+              data-fallback="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=2200&q=90"
+              src="https://images.unsplash.com/photo-1593134257782-e895f913cc9c?auto=format&fit=crop&w=1800&q=90"
+              alt="Adventure Plate heavy-duty tag">
+            <span class="product-card-badge">Rugged</span>
+          </div>
           <div class="product-info">
             <h3>Adventure Plate</h3>
-            <p>A confident shape for pets that never sit still.</p>
-            <div class="price">From ₹599</div>
+            <p>A bold, reinforced profile built for active trail runners and water-loving dogs.</p>
+            <div class="product-card-footer">
+              <div class="price">From ₹599</div>
+              <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+                Customize
+              </a>
+            </div>
           </div>
         </article>
 
         <article class="product-card reveal">
-          <img
-            src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1800&q=90"
-            alt="Dog with collar">
+          <div class="product-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1800&q=90"
+              alt="Heritage Hexagon geometric pet tag">
+            <span class="product-card-badge">Geometric</span>
+          </div>
           <div class="product-info">
             <h3>Heritage Hexagon</h3>
-            <p>A distinctive geometric silhouette with smooth hand-finished edges.</p>
-            <div class="price">From ₹629</div>
+            <p>A distinctive multifaceted geometric silhouette with hand-buffed rounded corners.</p>
+            <div class="product-card-footer">
+              <div class="price">From ₹629</div>
+              <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+                Customize
+              </a>
+            </div>
           </div>
         </article>
 
         <article class="product-card reveal">
-          <img
-            src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=1800&q=90"
-            alt="Dog in park">
+          <div class="product-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=1800&q=90"
+              alt="Luxe Crest elegant engraved tag">
+            <span class="product-card-badge">Luxury</span>
+          </div>
           <div class="product-info">
             <h3>Luxe Crest</h3>
-            <p>A refined, elegant tag shape designed for special occasions and everyday style.</p>
-            <div class="price">From ₹649</div>
+            <p>An artisan crest silhouette pairing timeless jewelry elegance with safety.</p>
+            <div class="product-card-footer">
+              <div class="price">From ₹649</div>
+              <a href="#designer" class="btn btn-primary page-link" data-page="designer">
+                Customize
+              </a>
+            </div>
           </div>
         </article>
 
@@ -2029,25 +3815,47 @@ body.rtl #backToTop{right:auto;left:20px;}
 ========================================================= -->
 <main id="designer" class="page">
 
-  <!-- 1 -->
+  <!-- 1: Consistent Hero Section -->
   <section class="hero">
-    <div class="container">
+    <div class="container hero-grid">
 
-      <div class="section-head reveal">
-        <span class="eyebrow">Design your tag</span>
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Design Your Tag</span>
         <h1>Create something made specifically for them.</h1>
         <p>
-          Experiment with shape, finish and personalization before sending
-          your design request to the PAWTAG team.
+          Experiment with shapes, luxury metal alloys, laser-engraved typography and instant live rendering before sending your custom order to our artisans.
         </p>
+
+        <div class="hero-actions">
+          <a href="#designerStudio" class="btn btn-primary" onclick="document.getElementById('designerStudio').scrollIntoView({behavior:'smooth'})">
+            <span>Start Customizing Below</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </a>
+          <a href="#products" class="btn btn-outline page-link" data-page="products">
+            View All Styles
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <img
+          class="hero-image"
+          data-fallback="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=2200&q=90"
+          src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=2200&q=90"
+          alt="Happy pet wearing custom engraved tag">
+
+        <div class="floating-note">
+          <strong>Interactive Custom Studio</strong>
+          <span>Real-time preview • 4 finishes • Laser depth</span>
+        </div>
       </div>
 
     </div>
   </section>
 
 
-  <!-- 2 -->
-  <section class="section" style="padding-top:10px;">
+  <!-- 2: Interactive Designer Showcase -->
+  <section class="section" id="designerStudio" style="padding-top:10px;">
     <div class="container tag-showcase">
 
       <div class="tag-stage reveal">
@@ -2498,25 +4306,47 @@ body.rtl #backToTop{right:auto;left:20px;}
 ========================================================= -->
 <main id="contact" class="page">
 
-  <!-- 1 -->
+  <!-- 1: Consistent Hero Section -->
   <section class="hero">
-    <div class="container">
+    <div class="container hero-grid">
 
-      <div class="section-head reveal">
-        <span class="eyebrow">Let's talk</span>
-        <h1>Tell us what you need.</h1>
+      <div class="hero-copy reveal">
+        <span class="eyebrow">We're Here To Help</span>
+        <h1>Tell us what you need for your companion.</h1>
         <p>
-          Questions about products, personalization, bulk orders or custom
-          requirements? Send us a message.
+          Have questions about sizing, custom shelter packs, wholesale retail pricing, or emergency rush engraving? Reach out to our studio artisans anytime.
         </p>
+
+        <div class="hero-actions">
+          <a href="#contactFormSection" class="btn btn-primary" onclick="document.getElementById('contactFormSection').scrollIntoView({behavior:'smooth'})">
+            <span>Send Us a Message</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </a>
+          <a href="#bulk" class="btn btn-outline page-link" data-page="bulk">
+            Bulk Orders
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <img
+          class="hero-image"
+          data-fallback="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=2200&q=90"
+          src="https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=2200&q=90"
+          alt="Studio team caring for happy pet">
+
+        <div class="floating-note">
+          <strong>Direct Studio Care</strong>
+          <span>Human support • Replies within 24 hours</span>
+        </div>
       </div>
 
     </div>
   </section>
 
 
-  <!-- 2 -->
-  <section class="section" style="padding-top:20px;">
+  <!-- 2: Contact Info & Form -->
+  <section class="section" id="contactFormSection" style="padding-top:20px;">
     <div class="container contact-grid">
 
       <div class="contact-info reveal">
@@ -2752,6 +4582,7 @@ body.rtl #backToTop{right:auto;left:20px;}
         <div class="footer-links">
           <a href="#home1" class="page-link" data-page="home1">Home 01</a>
           <a href="#home2" class="page-link" data-page="home2">Home 02</a>
+          <a href="#about" class="page-link" data-page="about">About Us</a>
           <a href="#products" class="page-link" data-page="products">Products</a>
           <a href="#designer" class="page-link" data-page="designer">Design Your Tag</a>
         </div>
@@ -3163,6 +4994,47 @@ document.querySelectorAll(".shape-btn").forEach(btn=>{
     }
   });
 });
+
+/* =========================================================
+                 HOME 2 FINISH SELECTOR
+========================================================= */
+const hero2Swatches = document.querySelectorAll(".hero2-swatch-chip");
+const hero2TagSpecimen = document.getElementById("hero2TagSpecimen");
+const hero2RingLoop = document.getElementById("hero2RingLoop");
+const hero2SelectedFinishName = document.getElementById("hero2SelectedFinishName");
+
+const hero2FinishLabels = {
+  brass: "Solid Polished Brass",
+  black: "Matte Onyx Black",
+  rose: "Rose Gold Alloy",
+  silver: "Brushed 316L Silver"
+};
+
+const hero2RingColors = {
+  brass: "#d4a350",
+  black: "#585a60",
+  rose: "#e7a092",
+  silver: "#b4bcc7"
+};
+
+if(hero2Swatches && hero2Swatches.length > 0){
+  hero2Swatches.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      hero2Swatches.forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      const finish = btn.dataset.finish;
+      if(hero2TagSpecimen){
+        hero2TagSpecimen.className = "hero2-specimen-tag finish-" + finish;
+      }
+      if(hero2RingLoop && hero2RingColors[finish]){
+        hero2RingLoop.style.borderColor = hero2RingColors[finish];
+      }
+      if(hero2SelectedFinishName && hero2FinishLabels[finish]){
+        hero2SelectedFinishName.textContent = hero2FinishLabels[finish];
+      }
+    });
+  });
+}
 
 /* NEWSLETTER */
 const newsletterForm = document.getElementById("newsletterForm");
